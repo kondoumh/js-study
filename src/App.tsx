@@ -1,17 +1,15 @@
 import * as React from 'react';
+import TodoList from './TodoList'
 import './App.css';
 
 import logo from './logo.svg';
 
-interface TodoProps {
-  id: number;
-  title: string;
-  desc: string;
-  done: boolean;
+interface Props {
+  todos: TodoList
 }
 
-class App extends React.Component {
-  constructor(props: TodoProps) {
+class App extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       todos: [

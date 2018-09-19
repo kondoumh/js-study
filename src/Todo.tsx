@@ -1,6 +1,13 @@
 import * as React from 'react';
 
-class Todo extends React.Component {
+interface Props {
+    id: string,
+    title: string,
+    desc: string,
+    done: boolean
+}
+
+class Todo extends React.Component<Props> {
 
     render() {
         const className = "undone";
