@@ -9,7 +9,7 @@ interface Props {
 }
 
 class App extends React.Component<Props> {
-  constructor(props: Props) {
+  constructor(props: Props, {}) {
     super(props);
     this.state = {
       todos: [
@@ -35,6 +35,9 @@ class App extends React.Component<Props> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
+        <TodoList
+          todos={this.state.todos}
+        />
       </div>
     );
   }
