@@ -1,32 +1,14 @@
 import * as React from 'react';
-import TodoList from './TodoList'
-import './App.css';
+import "./App.css";
+import logo from "./logo.svg";
+import TodoList from './TodoList';
 
-import logo from './logo.svg';
-
-interface Props {
-  todos: TodoList
-}
-
-class App extends React.Component<Props> {
-  constructor(props: Props, {}) {
+class App extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
-    this.state = {
-      todos: [
-        {
-          id: 1,
-          title: "Hello, React",
-          desc: "Start React",
-          done: false
-        },
-        {
-          id: 2,
-          title: "Hello, Redux",
-          desc: "Start Redux",
-          done: false
-        }
-      ]
-    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {items: [], text: ""};
   }
   public render() {
     return (
@@ -35,11 +17,29 @@ class App extends React.Component<Props> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <TodoList
-          todos={this.state.todos}
-        />
+        <TodoList items={this.state.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input onChange={this.handleChange} value={this.state.text} />
+          <button>{"Add #" + (this.state.items.length + 1)}</button>
+        </form>
       </div>
     );
+  }
+
+  private handleChange(e: any) {
+    this.setState({text: e.target.value});
+  }
+
+  private handleSubmit(e: any) {
+    e.preventDefault();
+    const newItem = {
+      id: Date.now(),
+      text: this.state.text
+    }
+    this.setState((prevState: any) => ({
+      items: prevState.items.concat(newItem),
+      text: ""
+    }));
   }
 }
 

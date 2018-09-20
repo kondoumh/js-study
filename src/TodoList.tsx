@@ -1,25 +1,15 @@
-import * as React from 'react';
-import Todo from './Todo';
+import * as React from "react";
 
-interface Props {
-    todos: Array<Todo>
-}
+class TodoList extends React.Component<any, any> {
 
-class TodoList extends React.Component<Props> {
-
-    render() {
-        const todos = this.props.todos.map( todo =>
-            <Todo
-                key={todo.id}
-                {...todo}
-            />
-        )
-
-        return(
+    public render() {
+        return (
             <ul>
-                {todos}
+                {this.props.items.map(item => (
+                    <li key={item.id}>{item.text}</li>
+                ))}
             </ul>
-        );
+        )
     }
 }
 
