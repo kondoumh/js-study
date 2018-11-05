@@ -13,11 +13,8 @@ class TodoList extends React.Component<any, any> {
         )
     }
 
-    private handleClick(i: any) {
-        this.state.todo.splice(i, 1);
-        this.setState({
-            todo : this.state.todo
-        });
+    private handleClick(e: any) {
+        alert(e);
     }
 }
 
