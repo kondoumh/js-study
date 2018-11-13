@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { fetchMessages, Message } from '../client';
-import { Segment, image, Comment, Header } from 'semantic-ui-react';
+import { Segment, Image, Comment, Header } from 'semantic-ui-react';
 
 interface MessageFeedProps {
     channelName: string;
@@ -17,6 +17,26 @@ export class MessageFeed extends React.Component<MessageFeedProps, MessageFeedSt
         this.state = {
             messages: []
         };
+    }
+
+    private fetchMessages = (channelName: string) => {
+        fetchMessages(channelName)
+            .then(response => {
+                this.setState({ messages: response.data.messages});
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    public componentDidUpdate(prevProps: MessageFeedProps) {
+        if (prevProps.channelName !== this.props.channelName) {
+            this.fetchMessages(this.props.channelName);
+        }
+    }
+
+    public componentDidMount() {
+        this.fetchMessages(this.props.channelName);
     }
 
     public render() {
