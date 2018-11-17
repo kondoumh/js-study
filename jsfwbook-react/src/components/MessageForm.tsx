@@ -18,6 +18,7 @@ export class MessageForm extends React.Component<MessageFormProps, MessageFormSt
             body: ''
         };
         this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     private handleTextAreaChange(event: React.FormEvent<HTMLTextAreaElement>) {
@@ -25,10 +26,24 @@ export class MessageForm extends React.Component<MessageFormProps, MessageFormSt
         this.setState({ body: event.currentTarget.value });
     }
 
+    private handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const payload = {
+            body: this.state.body,
+        } as Message;
+        postMessage(this.props.channelName, payload)
+            .then(() => {
+                this.setState({ body: '' });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
     public render() {
         return (
             <Segment basic textAlign='center'>
-                <Form>
+                <Form onSubmit={this.handleFormSubmit}>
                     <Form.Field>
                         <TextArea
                             autoHeight
@@ -38,7 +53,6 @@ export class MessageForm extends React.Component<MessageFormProps, MessageFormSt
                     </Form.Field>
                     <Button primary type='submit'>Send</Button>
                 </Form>
-                <p>入力中の値: {this.state.body}</p>
             </Segment>
         );
     }
