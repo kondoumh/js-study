@@ -94,7 +94,7 @@ app.get('/channels', (req, res) => {
     });
 });
 
-app.post('channels/:cname/messages', (req, res) => {
+app.post('/channels/:cname/messages', (req, res) => {
     let cname = req.param.cname;
     let message = {
         date: new Date().toJSON(),
