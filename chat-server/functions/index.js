@@ -93,3 +93,16 @@ app.get('/channels', (req, res) => {
         res.send({channels: items});
     });
 });
+
+app.post('channels/:cname/messages', (req, res) => {
+    let cname = req.param.cname;
+    let message = {
+        date: new Date().toJSON(),
+        body: req.body.body,
+        user: req.user
+    };
+    let messagesRef = admin.database().ref(`channels/${cname}/messages`);
+    messagesRef.push(message);
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.status(201).send({result: 'ok'})
+});
