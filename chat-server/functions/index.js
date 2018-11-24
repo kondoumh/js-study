@@ -50,7 +50,7 @@ function createChannel(cname) {
     let date2 = new Date();
     date2.setSeconds(date2.getSeconds() + 1);
     const defaultData = `{
-        "messages : {
+        "messages" : {
             "1" : {
                 "body" : "Welcome to #${cname} channel!",
                 "date" : "${date1.toJSON()}",
@@ -60,8 +60,8 @@ function createChannel(cname) {
                     "name" : "Robot"
                 }
             },
-            "2" {
-                "body" : "はじめてのメッセージを登録してみましょう",
+            "2" : {
+                "body" : "はじめてのメッセージを投稿してみましょう。",
                 "date" : "${date2.toJSON()}",
                 "user" : {
                     "avatar" : "",
