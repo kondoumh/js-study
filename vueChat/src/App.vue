@@ -1,17 +1,20 @@
-<template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+<template lang="pug">
+  #app
+    img(src="./assets/logo.png")
+    .sample pug で記述
+    router-view
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'app'
 }
 </script>
 
 <style>
+:root {
+  --sample-weight: 900;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,5 +22,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.sample {
+  font-weight: var(--sample-weight);
 }
 </style>
