@@ -2,7 +2,8 @@ export default {
     name: 'chat',
     data() {
         return {
-            channels: ["general", "random"]
+            channels: ["general", "random"],
+            message: ""
         }
     }
 }
