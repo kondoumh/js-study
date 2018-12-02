@@ -4,7 +4,7 @@ el-container
       li(v-for="(channel) in channels")
         router-link(:to="{name: 'channel', params: { cname: channel }}") {{ channel }}
   el-container
-    el-header {{ $route.pramas.cname }}
+    el-header {{ $route.params.cname  }}
     el-main
       message-list(:messages='messages')
     el-footer
