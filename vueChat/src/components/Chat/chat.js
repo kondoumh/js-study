@@ -1,8 +1,12 @@
 import { mapGetters, mapActions} from 'vuex'
 import { GET_CHANNELS } from '../../store/mutation-types'
+import MessageList from '../MessageList'
 
 export default {
     name: 'chat',
+    components: {
+        'message-list': MessageList
+    },
     mounted(){
       this.GET_CHANNELS()
       this.GET_MESSAGES(this.$route.params.cname)
