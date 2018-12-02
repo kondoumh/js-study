@@ -24,7 +24,7 @@ const anonymousUser = {
 
 const checkUser = (req, res, next) => {
     req.user = anonymousUser;
-    if (req.query.auth_token != undefined) {
+    if (req.query.auth_token !== undefined) {
         let idToken = req.query.auth_token;
         admin.auth().verifyIdToken(idToken).then(decodedIdToken => {
             let authUser = {
@@ -95,7 +95,7 @@ app.get('/channels', (req, res) => {
 });
 
 app.post('/channels/:cname/messages', (req, res) => {
-    let cname = req.param.cname;
+    let cname = req.params.cname;
     let message = {
         date: new Date().toJSON(),
         body: req.body.body,
@@ -104,7 +104,7 @@ app.post('/channels/:cname/messages', (req, res) => {
     let messagesRef = admin.database().ref(`channels/${cname}/messages`);
     messagesRef.push(message);
     res.header('Content-Type', 'application/json; charset=utf-8');
-    res.status(201).send({result: 'ok'})
+    res.status(201).send({result: 'ok'});
 });
 
 app.get('/channels/:cname/messages', (req, res) => {
