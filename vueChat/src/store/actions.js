@@ -1,6 +1,6 @@
 import {
     GET_CHANNELS,
-    SET_MESSAGE
+    SET_MESSAGES
 } from './mutation-types'
 
 export default {
