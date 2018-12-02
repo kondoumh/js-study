@@ -7,7 +7,8 @@ import actions from './actions'
 Vue.use(Vuex)
 
 const state = {
-    messages: []
+    messages: [],
+    channels: []
 }
 
 export default new Vuex.Store({
