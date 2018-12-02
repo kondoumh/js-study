@@ -1,12 +1,9 @@
 import {
-    SET_MESSAGE,
-    GET_CHANNELS
+    GET_CHANNELS,
+    SET_MESSAGE
 } from './mutation-types'
 
 export default {
-    [SET_MESSAGE] ({commit}, message) {
-        commit(SET_MESSAGE, message)
-    },
     [GET_CHANNELS] ({commit}) {
         async function fetch_api() {
             const response = await fetch('https://us-central1-demoapp-cc44a.cloudfunctions.net/v1/channels')
@@ -14,10 +11,6 @@ export default {
             commit(GET_CHANNELS, json.channels)
         }
         fetch_api()
-        /*fetch('https://us-central1-demoapp-cc44a.cloudfunctions.net/v1/channels').then((response)=>{
-            return response.json()
-        }).then((json)=>{
-            commit(GET_CHANNELS, json.channels)
-        })*/
-    }
+    },
+    async GET_MESSAGE
 }

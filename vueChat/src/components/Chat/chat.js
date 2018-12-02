@@ -1,7 +1,7 @@
 import { mapGetters, mapActions} from 'vuex'
 import {
     GET_CHANNELS,
-    SET_MESSAGE
+    SET_MESSAGES
 } from '../../store/mutation-types'
 
 export default {
