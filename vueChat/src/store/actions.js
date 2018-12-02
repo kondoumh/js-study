@@ -2,15 +2,15 @@ import {
   GET_CHANNELS,
   SET_MESSAGES
 } from './mutation-types'
-  
+
 const get_message_path = cname => 'https://us-central1-demoapp-cc44a.cloudfunctions.net/v1/channels/' + cname + '/messages'
-  
+
 async function fetch_get_messages (cname) {
   const response = await fetch(get_message_path(cname))
   const json = await response.json()
   return json.messages
 }
-  
+
 export default {
   [GET_CHANNELS] ({commit}) {
      async function fetch_api(){
