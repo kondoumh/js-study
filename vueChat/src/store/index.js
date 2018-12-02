@@ -1,4 +1,4 @@
-import Vue from 'Vue'
+import Vue from 'vue'
 import Vuex from 'vuex'
 import * as getters from './getters'
 import mutations from './mutations'
