@@ -7,7 +7,9 @@
   .messages
     ul
       li(v-for="(mes) in messages")
-        .message {{ mes }}
+        .message {{ mes.cody }}
+        .date {{ mes.date }}
+        .name {{ mes.user.name }}
   .form
     input(type="text" v-model="message")
     input(type="button" value="SEND" "@click"="send_message")
