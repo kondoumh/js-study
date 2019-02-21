@@ -1,13 +1,19 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <JointDia/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import JointDia from '@/components/JointDia'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    JointDia
+  }
 }
 </script>
 
