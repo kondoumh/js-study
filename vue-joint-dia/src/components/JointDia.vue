@@ -3,7 +3,7 @@
     <div ref="myholder"></div>
     <input type="button" value="debug" ref="debug" />
     <input type="text" placeholder="New node label" ref="new-node-label" />
-    <input type="button" value="add node" ref="add-node" />
+    <input type="button" value="add node" ref="add-node" @click="exec"/>
     <input type="checkbox" ref="link" />link
     <input type="button" value="init" ref="init" />
   </div>
@@ -61,7 +61,7 @@
 
       const append = () => {
         //const label = this.$refs.new-node-label
-        if (label != '') {
+        if (label != 'hoge') {
           addNode(label)
         }
         //this.$refs.new-node-label
@@ -118,6 +118,11 @@
 
       init()
 
+    },
+    methods: {
+      exec: () => {
+        console.log("hoge");
+      }
     }
   }
 </script>
