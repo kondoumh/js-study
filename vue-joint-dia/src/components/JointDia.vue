@@ -14,13 +14,13 @@
   export default {
     name: 'JointDia',
     mounted(){
-      let graph = new joint.dia.Graph
-      graph.on('add', (elm) => {
+      this.graph = new joint.dia.Graph
+      this.graph.on('add', (elm) => {
         console.log('add : ' + elm.cid)
       })
       let paper = new joint.dia.Paper({
         el: this.$refs.myholder,
-        model: graph,
+        model: this.graph,
         width: 400,
         height: 300,
         gridSize: 1,
@@ -36,28 +36,6 @@
         return colors[n];
       }
 
-      const addNode = (label) => {
-        const rect = new joint.shapes.standard.Rectangle()
-        const x = Math.random() * 330
-        const y = Math.random() * 220
-        rect.position(x, y)
-        rect.resize(100, 40)
-        rect.attr({
-          body: {
-            fill: selectColor()
-          },
-          label: {
-            text: label,
-            fill: 'white'
-          }
-        })
-        rect.on('change:position', (rect, position)=> {
-          console.log(label, position.x, position.y)
-        })
-        rect.addTo(graph)
-        return rect
-      }
-
       const append = () => {
         //const label = this.$refs.new-node-label
         if (label != 'hoge') {
@@ -70,7 +48,7 @@
         const link = new joint.shapes.standard.Link();
         link.source(source);
         link.target(target);
-        link.addTo(graph);
+        link.addTo(this.graph);
       };
 
       let cellViewFrom = null;
@@ -98,9 +76,9 @@
       })
 
       const init = () => {
-        const rect1 = addNode('Hello')
-        const rect2 = addNode('JointJS')
-        const rect3 = addNode('World')
+        const rect1 = this.addNodeWithName('Hello')
+        const rect2 = this.addNodeWithName('JointJS')
+        const rect3 = this.addNodeWithName('World')
         addLink(rect1, rect2)
         addLink(rect2, rect3)
       }
@@ -109,15 +87,40 @@
 
     data() {
       return {
-          nodeName: '',
+        graph: {},
+        nodeName: '',
+        colors: ["red", "blue", "black", "orange", "green"]
       }
-    } ,
+    },
     methods : {
       addNode() {
         console.log(this.nodeName)
-        if(!this.nodeName.trim()) {
+        const name = this.nodeName.trim()
+        if(!name) {
             return
         }
+        this.addNodeWithName(name)
+      },
+      addNodeWithName(name) {
+        const rect = new joint.shapes.standard.Rectangle()
+        const x = Math.random() * 330
+        const y = Math.random() * 220
+        rect.position(x, y)
+        rect.resize(100, 40)
+        rect.attr({
+          body: {
+            fill: this.colors[parseInt(Math.random() * Math.floor(this.colors.length))]
+          },
+          label: {
+            text: name,
+            fill: 'white'
+          }
+        })
+        rect.on('change:position', (e, position)=> {
+          console.log(position.x, position.y)
+        })
+        rect.addTo(this.graph)
+        return rect
       }
     }
   }
