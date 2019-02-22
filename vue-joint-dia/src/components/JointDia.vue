@@ -1,11 +1,10 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    <input type="button" value="debug" ref="debug" />
-    <input type="text" placeholder="New node label" ref="new-node-label" />
-    <input type="button" value="add node" ref="add-node" @click="exec"/>
+    <input type="text" placeholder="new node name" v-model="nodeName" />
+    <p>node name is {{nodeName}}</p>
+    <input type="button" v-on:click="addNode" value="add node" >
     <input type="checkbox" ref="link" />link
-    <input type="button" value="init" ref="init" />
   </div>
 </template>
 
@@ -13,7 +12,7 @@
   import joint from 'jointjs'
 
   export default {
-    name: 'JointDiagram',
+    name: 'JointDia',
     mounted(){
       let graph = new joint.dia.Graph
       graph.on('add', (elm) => {
@@ -67,16 +66,6 @@
         //this.$refs.new-node-label
       }
 
-      // $('#add-node').click(() => {
-      //   append()
-      // })
-
-      // $('#new-node-label').keypress((key) => {
-      //   if (key.charCode == 13) {
-      //     append()
-      //   }
-      // })
-
       const addLink = (source, target) => {
         const link = new joint.shapes.standard.Link();
         link.source(source);
@@ -103,7 +92,7 @@
           addLink(from, to)
           from = null
           to = null
-          $('#link').prop('checked', false)
+          //$('#link').prop('checked', false)
           cellViewFrom.unhighlight()
         }
       })
@@ -115,13 +104,20 @@
         addLink(rect1, rect2)
         addLink(rect2, rect3)
       }
-
       init()
-
     },
-    methods: {
-      exec: () => {
-        console.log("hoge");
+
+    data() {
+      return {
+          nodeName: '',
+      }
+    } ,
+    methods : {
+      addNode() {
+        console.log(this.nodeName)
+        if(!this.nodeName.trim()) {
+            return
+        }
       }
     }
   }
