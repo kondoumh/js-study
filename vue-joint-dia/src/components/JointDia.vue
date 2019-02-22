@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    <input type="text" placeholder="new node name" v-model="nodeName" />
+    <input type="text" placeholder="new node name" v-model="nodeName" v-on:keyup.enter="addNode"/>
     <input type="button" v-on:click="addNode" value="add node" >
     <input type="checkbox" id="checkLink" v-model="linkMode" />
     <label for="checkLink">link mode</label>
@@ -76,6 +76,7 @@
             return
         }
         this.addNodeWithName(name)
+        this.nodeName = ''
       },
       addNodeWithName(name) {
         const rect = new joint.shapes.standard.Rectangle()
