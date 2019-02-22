@@ -2,9 +2,9 @@
   <div>
     <div ref="myholder"></div>
     <input type="text" placeholder="new node name" v-model="nodeName" />
-    <p>node name is {{nodeName}}</p>
     <input type="button" v-on:click="addNode" value="add node" >
-    <input type="checkbox" ref="link" />link
+    <input type="checkbox" id="checkLink" v-model="linkMode" />
+    <label for="checkLink">link mode</label>
   </div>
 </template>
 
@@ -30,27 +30,12 @@
         }
       })
 
-      const colors = ["red", "blue", "black", "orange", "green"]
-      const selectColor = () => {
-        const n = parseInt(Math.random() * Math.floor(colors.length));
-        return colors[n];
-      }
-
-      const append = () => {
-        //const label = this.$refs.new-node-label
-        if (label != 'hoge') {
-          addNode(label)
-        }
-        //this.$refs.new-node-label
-      }
-
       let cellViewFrom = null;
       let from = null;
       let to = null;
 
       paper.on('cell:pointerup', (cellView) => {
-        //const linkMode = $('#link').prop('checked')
-        const linkMode = false
+        const linkMode = this.linkMode
         if (!linkMode) return
         if (from === null) {
           cellView.highlight()
@@ -63,31 +48,29 @@
           this.addLink(from, to)
           from = null
           to = null
-          //$('#link').prop('checked', false)
+          this.linkMode = false
           cellViewFrom.unhighlight()
         }
       })
 
-      const init = () => {
-        const rect1 = this.addNodeWithName('Hello')
-        const rect2 = this.addNodeWithName('JointJS')
-        const rect3 = this.addNodeWithName('World')
-        this.addLink(rect1, rect2)
-        this.addLink(rect2, rect3)
-      }
-      init()
+      const rect1 = this.addNodeWithName('ふなっしー')
+      const rect2 = this.addNodeWithName('ヒャッハー')
+      const rect3 = this.addNodeWithName('梨汁プシャー')
+      this.addLink(rect1, rect2)
+      this.addLink(rect1, rect3)
     },
-
     data() {
       return {
         graph: {},
         nodeName: '',
-        colors: ["red", "blue", "black", "orange", "green"]
+        colors: ["red", "blue", "black", "orange", "green"],
+        linkMode: false
       }
     },
     methods : {
       addNode() {
         console.log(this.nodeName)
+        console.log(this.linkMode)
         const name = this.nodeName.trim()
         if(!name) {
             return
