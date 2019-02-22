@@ -21,12 +21,12 @@
       let paper = new joint.dia.Paper({
         el: this.$refs.myholder,
         model: this.graph,
-        width: 400,
-        height: 300,
+        width: 800,
+        height: 600,
         gridSize: 1,
         drawGrid: true,
         background: {
-          color: "rgba(0, 255, 0, 0.3)"
+          color: "rgba(0, 128, 0, 0.1)"
         }
       })
 
@@ -80,8 +80,8 @@
       },
       addNodeWithName(name) {
         const rect = new joint.shapes.standard.Rectangle()
-        const x = Math.random() * 330
-        const y = Math.random() * 220
+        const x = Math.random() * 700
+        const y = Math.random() * 500
         rect.position(x, y)
         rect.resize(100, 40)
         rect.attr({
