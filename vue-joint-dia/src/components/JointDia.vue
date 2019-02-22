@@ -44,13 +44,6 @@
         //this.$refs.new-node-label
       }
 
-      const addLink = (source, target) => {
-        const link = new joint.shapes.standard.Link();
-        link.source(source);
-        link.target(target);
-        link.addTo(this.graph);
-      };
-
       let cellViewFrom = null;
       let from = null;
       let to = null;
@@ -67,7 +60,7 @@
           to = cellView.model;
         }
         if (from && to) {
-          addLink(from, to)
+          this.addLink(from, to)
           from = null
           to = null
           //$('#link').prop('checked', false)
@@ -79,8 +72,8 @@
         const rect1 = this.addNodeWithName('Hello')
         const rect2 = this.addNodeWithName('JointJS')
         const rect3 = this.addNodeWithName('World')
-        addLink(rect1, rect2)
-        addLink(rect2, rect3)
+        this.addLink(rect1, rect2)
+        this.addLink(rect2, rect3)
       }
       init()
     },
@@ -121,6 +114,12 @@
         })
         rect.addTo(this.graph)
         return rect
+      },
+      addLink(source, target) {
+        const link = new joint.shapes.standard.Link()
+        link.source(source)
+        link.target(target)
+        link.addTo(this.graph)
       }
     }
   }
