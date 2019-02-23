@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    <input type="text" placeholder="new node name" v-model="nodeName" v-on:keyup.enter="addNode"/>
+    <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.enter="addNode"/>
     <input type="button" v-on:click="addNode" value="add node" >
     <input type="checkbox" id="checkLink" v-model="linkMode" />
     <label for="checkLink">link mode</label>
@@ -70,11 +70,10 @@
       addNode() {
         console.log(this.nodeName)
         console.log(this.linkMode)
-        const name = this.nodeName.trim()
-        if(!name) {
+        if(!this.nodeName) {
             return
         }
-        this.addNodeWithName(name)
+        this.addNodeWithName(this.nodeName)
         this.nodeName = ''
       },
       addNodeWithName(name) {
