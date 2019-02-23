@@ -68,8 +68,6 @@
     },
     methods : {
       addNode() {
-        console.log(this.nodeName)
-        console.log(this.linkMode)
         if(!this.nodeName) {
             return
         }
@@ -92,7 +90,7 @@
           }
         })
         rect.on('change:position', (e, position)=> {
-          console.log(position.x, position.y)
+          console.log(name, position.x, position.y)
         })
         rect.addTo(this.graph)
         return rect
