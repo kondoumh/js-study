@@ -1,10 +1,12 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.ctrl.enter="addNode"/>
-    <input type="button" v-on:click="addNode" value="add node" >
-    <input type="checkbox" id="checkLink" v-model="linkMode" />
-    <label for="checkLink">link mode</label>
+    <div>
+      <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.ctrl.enter="addNode"/>
+      <input type="button" v-on:click="addNode" value="add node" >
+      <input type="checkbox" id="checkLink" v-model="linkMode" />
+      <label for="checkLink">link mode</label>
+    </div>
   </div>
 </template>
 
@@ -26,7 +28,7 @@
         gridSize: 1,
         drawGrid: true,
         background: {
-          color: "rgba(0, 128, 0, 0.1)"
+          color: 'rgba(0, 128, 0, 0.1)'
         }
       })
 
@@ -59,7 +61,7 @@
       return {
         graph: {},
         nodeName: '',
-        colors: ["red", "blue", "black", "orange", "green"],
+        colors: ['red', 'blue', 'black', 'orange', 'green'],
         linkMode: false,
         cellViewFrom: null,
         from: null,
