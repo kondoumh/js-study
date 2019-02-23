@@ -1,16 +1,33 @@
 <template>
   <div id="app">
-    <JointDia/>
+    <JointDia v-bind:nodeName="nodeName" v-bind:linkMode="linkMode"/>
+    <InputForm v-on:addNode="addNode" v-on:checkLink="checkLink"/>
   </div>
 </template>
 
 <script>
 import JointDia from '@/components/JointDia'
+import InputForm from '@/components/InputForm'
 
 export default {
   name: 'App',
   components: {
-    JointDia
+    JointDia,
+    InputForm
+  },
+  data() {
+    return {
+      nodeName: '',
+      linkMode: false
+    }
+  },
+  methods: {
+    addNode(name) {
+      this.nodeName = name
+    },
+    checkLink(checkLink) {
+      this.linkMode = checkLink
+    }
   }
 }
 </script>

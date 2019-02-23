@@ -1,12 +1,7 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    <div>
-      <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.ctrl.enter="addNode"/>
-      <input type="button" v-on:click="addNode" value="add node" >
-      <input type="checkbox" id="checkLink" v-model="linkMode" />
-      <label for="checkLink">link mode</label>
-    </div>
+    {{linkMode}}
   </div>
 </template>
 
@@ -60,21 +55,26 @@
     data() {
       return {
         graph: {},
-        nodeName: '',
         colors: ['red', 'blue', 'black', 'orange', 'green'],
-        linkMode: false,
         cellViewFrom: null,
         from: null,
         to: null,
       }
     },
-    methods : {
-      addNode() {
-        if(!this.nodeName) {
-            return
+    props: {
+      nodeName: String,
+      linkMode: Boolean,
+    },
+    watch: {
+      nodeName: {
+        handler (newVal, oldVal) {
+          this.addNodeWithName(newVal)
         }
-        this.addNodeWithName(this.nodeName)
-        this.nodeName = ''
+      }
+    },
+    methods: {
+      addNode() {
+        console.log("hoge")
       },
       addNodeWithName(name) {
         const rect = new joint.shapes.standard.Rectangle()
@@ -92,7 +92,7 @@
           }
         })
         rect.on('change:position', (e, position)=> {
-          console.log(name, position.x, position.y)
+          console.log(e.cid, position.x, position.y)
         })
         rect.addTo(this.graph)
         return rect
