@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <JointDia v-bind:nodeName="nodeName" v-bind:linkMode="linkMode"/>
     <InputForm v-on:addNode="addNode" v-on:checkLink="checkLink"/>
+    <JointDia v-bind:nodeName="nodeName" v-bind:linkMode="linkMode"/>
   </div>
 </template>
 
