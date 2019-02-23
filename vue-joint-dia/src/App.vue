@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <InputForm v-on:addNode="addNode" v-on:checkLink="checkLink"/>
-    <JointDia v-bind:nodeName="nodeName" v-bind:linkMode="linkMode"/>
+    <InputForm v-on:addNode="addNode" v-on:checkLink="checkLink" />
+    <JointDia v-bind:nodeName="nodeName" v-bind:linkMode="linkMode" />
   </div>
 </template>
 
@@ -37,4 +37,4 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-size: 90%;
 }
-</style></style>
+</style>

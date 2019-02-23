@@ -1,9 +1,9 @@
 <template>
   <div>
     <div>
-      <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.ctrl.enter="add"/>
-      <input type="button" v-on:click="add" value="add node" >
-      <input type="checkbox" id="checkLink" v-model="linkMode" v-on:change="check"/>
+      <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.ctrl.enter="add" />
+      <input type="button" v-on:click="add" value="add node" />
+      <input type="checkbox" id="checkLink" v-model="linkMode" v-on:change="check" />
       <label for="checkLink">link mode</label>
     </div>
   </div>
