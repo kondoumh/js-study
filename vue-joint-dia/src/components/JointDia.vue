@@ -9,7 +9,7 @@
 
   export default {
     name: 'JointDia',
-    mounted(){
+    mounted() {
       this.graph = new joint.dia.Graph
       this.graph.on('add', (elm) => {
         console.log('add : ' + elm.cid)
