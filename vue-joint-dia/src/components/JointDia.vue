@@ -1,7 +1,6 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    {{linkMode}}
   </div>
 </template>
 
@@ -41,14 +40,13 @@
           this.addLink(this.from, this.to)
           this.from = null
           this.to = null
-          this.linkMode = false
           this.cellViewFrom.unhighlight()
         }
       })
 
-      const rect1 = this.addNodeWithName('ふなっしー')
-      const rect2 = this.addNodeWithName('ヒャッハー')
-      const rect3 = this.addNodeWithName('梨汁プシャー')
+      const rect1 = this.addNode('ふなっしー')
+      const rect2 = this.addNode('ヒャッハー')
+      const rect3 = this.addNode('梨汁プシャー')
       this.addLink(rect1, rect2)
       this.addLink(rect1, rect3)
     },
@@ -68,15 +66,19 @@
     watch: {
       nodeName: {
         handler (newVal, oldVal) {
-          this.addNodeWithName(newVal)
+          this.addNode(newVal)
+        }
+      },
+      linkMode: {
+        handler (newVal, oldVal) {
+          this.cellViewFrom = null
+          this.from = null
+          this.to = null
         }
       }
     },
     methods: {
-      addNode() {
-        console.log("hoge")
-      },
-      addNodeWithName(name) {
+      addNode(name) {
         const rect = new joint.shapes.standard.Rectangle()
         const x = Math.random() * 700
         const y = Math.random() * 500
