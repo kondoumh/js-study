@@ -1,7 +1,7 @@
 <template>
   <div>
     <div ref="myholder"></div>
-    <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.enter="addNode"/>
+    <input type="text" placeholder="new node name" v-model.trim="nodeName" v-on:keyup.ctrl.enter="addNode"/>
     <input type="button" v-on:click="addNode" value="add node" >
     <input type="checkbox" id="checkLink" v-model="linkMode" />
     <label for="checkLink">link mode</label>
