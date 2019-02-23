@@ -30,26 +30,22 @@
         }
       })
 
-      let cellViewFrom = null;
-      let from = null;
-      let to = null;
-
       paper.on('cell:pointerup', (cellView) => {
         const linkMode = this.linkMode
         if (!linkMode) return
-        if (from === null) {
+        if (this.from === null) {
           cellView.highlight()
-          cellViewFrom = cellView
-          from = cellView.model
-        } else if (to === null) {
-          to = cellView.model;
+          this.cellViewFrom = cellView
+          this.from = cellView.model
+        } else if (this.to === null) {
+          this.to = cellView.model;
         }
-        if (from && to) {
-          this.addLink(from, to)
-          from = null
-          to = null
+        if (this.from && this.to) {
+          this.addLink(this.from, this.to)
+          this.from = null
+          this.to = null
           this.linkMode = false
-          cellViewFrom.unhighlight()
+          this.cellViewFrom.unhighlight()
         }
       })
 
@@ -64,7 +60,10 @@
         graph: {},
         nodeName: '',
         colors: ["red", "blue", "black", "orange", "green"],
-        linkMode: false
+        linkMode: false,
+        cellViewFrom: null,
+        from: null,
+        to: null,
       }
     },
     methods : {
