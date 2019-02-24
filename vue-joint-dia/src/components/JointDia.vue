@@ -34,7 +34,7 @@
           this.cellViewFrom = cellView
           this.from = cellView.model
         } else if (this.to === null) {
-          this.to = cellView.model;
+          this.to = cellView.model
         }
         if (this.from && this.to) {
           this.addLink(this.from, this.to)
