@@ -71,6 +71,9 @@
       },
       linkMode: {
         handler (newVal, oldVal) {
+          if (this.cellViewFrom) {
+            this.cellViewFrom.unhighlight()
+          }
           this.cellViewFrom = null
           this.from = null
           this.to = null
