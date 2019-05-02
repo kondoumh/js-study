@@ -10,25 +10,25 @@
 </template>
 
 <script>
-  export default {
-    name: 'InputForm',
-    data() {
-      return {
-          nodeName: '',
-          linkMode: false
+export default {
+  name: 'InputForm',
+  data () {
+    return {
+      nodeName: '',
+      linkMode: false
+    }
+  },
+  methods: {
+    add () {
+      if (!this.nodeName) {
+        return
       }
+      this.$emit('addNode', this.nodeName)
+      this.nodeName = ''
     },
-    methods: {
-      add() {
-        if (!this.nodeName) {
-            return;
-        }
-        this.$emit('addNode', this.nodeName)
-        this.nodeName = ''
-      },
-      check() {
-        this.$emit('checkLink', this.linkMode)
-      }
+    check () {
+      this.$emit('checkLink', this.linkMode)
     }
   }
+}
 </script>

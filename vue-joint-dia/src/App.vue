@@ -15,17 +15,17 @@ export default {
     JointDia,
     InputForm
   },
-  data() {
+  data () {
     return {
       nodeName: '',
       linkMode: false
     }
   },
   methods: {
-    addNode(name) {
+    addNode (name) {
       this.nodeName = name
     },
-    checkLink(checkLink) {
+    checkLink (checkLink) {
       this.linkMode = checkLink
     }
   }
