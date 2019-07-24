@@ -18,6 +18,9 @@
     "@types/node": "^10.14.13",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "handlebars": ">=4.0.14",
+    "lodash": ">=4.17.13",
+    "lodash.template": ">=4.5.0"
   }
 }
