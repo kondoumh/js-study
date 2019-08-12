@@ -9,9 +9,14 @@ import  L from 'leaflet'
 
 export default {
     mounted() {
-        L.map( 'app', { center: L.latLng( 35.6825, 139.752778 ), zoom: 15 } ).addLayer(
-            L.tileLayer( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png' )
+        const map = L.map( 'app', {
+             center: L.latLng( 35.6825, 139.752778 ),
+             zoom: 15
+            }).addLayer(L.tileLayer( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png' )
         )
+        L.marker( [35.6825, 139.752778] ).addTo( map )
+        .bindPopup( 'A pretty CSS3 popup.<br> Easily customizable.' )
+        .openPopup()
     }
 }
 </script>
