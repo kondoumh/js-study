@@ -3,7 +3,7 @@ const data = [200, 300, 1800, 50, 600];
 const avg = data.reduce((p, c) => { return p + c; }) / data.length;
 const variance = data.map(e => { return (Math.pow(Math.abs(e - avg), 2)) })
                      .reduce((p, c) => { return p + c; });
-const sd = Math.sqrt(variance / data.length)
+const sd = Math.sqrt(variance / data.length);
 console.log(`sd of data: [${data}] is ${sd}`);
 
 // compute expected value of throwing a dice
