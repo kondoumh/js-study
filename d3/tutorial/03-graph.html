@@ -1,0 +1,32 @@
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>d3 SVG graph</title>
+  <script type="text/javascript" src="http://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+    const svg = d3.select("body").append("svg").attr("width", 500).attr("height", 100);
+    const ds = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
+    [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
+    svg.selectAll("circle")
+      .data(ds)
+      .enter()
+      .append("circle")
+      .attr("cx", d => { return d[0]; })
+      .attr("cy", d => { return d[1]; })
+      .attr("r", 4);
+    svg.selectAll("text")
+      .data(ds)
+      .enter()
+      .append("text")
+      .attr("x", d => { return d[0]; })
+      .attr("y", d => { return d[1]; })
+      .attr("fill", "red")
+      .text(d => { return `${d[0]}, ${d[1]}` });
+  </script>
+</body>
+
+</html>
