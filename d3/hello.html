@@ -8,7 +8,13 @@
 
 <body>
   <script type="text/javascript">
-    d3.select("body").append("p").text("new paragraph");
+    const nums = [5, 10, 15, 20, 25];
+    d3.select("body").selectAll("p")
+      .data(nums)
+      .enter()
+      .append("p")
+      .text(num => { return num; })
+      .style("color", num => { return num > 15 ? "red" : "black"; });
   </script>
 </body>
 
