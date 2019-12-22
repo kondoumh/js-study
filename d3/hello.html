@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>D3 Test</title>
-  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="http://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
@@ -15,6 +15,7 @@
       .append("p")
       .text(num => { return num; })
       .style("color", num => { return num > 15 ? "red" : "black"; });
+    d3.select("body").style("background-color", "gray");
   </script>
 </body>
 
