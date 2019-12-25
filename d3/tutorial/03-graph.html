@@ -8,22 +8,32 @@
 
 <body>
   <script type="text/javascript">
-    const svg = d3.select("body").append("svg").attr("width", 600).attr("height", 100);
+    const width = 400;
+    const height = 300;
+    const svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
     const ds = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
     [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
+    const padding = 30;
+    const xScale = d3.scaleLinear()
+      .domain([0, d3.max(ds, d => { return d[0]; })])
+      .range([padding, width - padding]);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(ds, d => { return d[1]; })])
+      .range([height - padding, padding])
+
     svg.selectAll("circle")
       .data(ds)
       .enter()
       .append("circle")
-      .attr("cx", d => { return d[0]; })
-      .attr("cy", d => { return d[1]; })
+      .attr("cx", d => { return xScale(d[0]); })
+      .attr("cy", d => { return yScale(d[1]); })
       .attr("r", 4);
     svg.selectAll("text")
       .data(ds)
       .enter()
       .append("text")
-      .attr("x", d => { return d[0] + 5; })
-      .attr("y", d => { return d[1] + 5; })
+      .attr("x", d => { return xScale(d[0]) + 5; })
+      .attr("y", d => { return yScale(d[1]) + 5; })
       .attr("fill", "red")
       .text(d => { return `${d[0]}, ${d[1]}` });
   </script>
