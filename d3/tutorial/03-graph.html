@@ -21,6 +21,11 @@
       .domain([0, d3.max(ds, d => { return d[1]; })])
       .range([height - padding, padding])
 
+    const axisX = d3.axisBottom(xScale);
+    svg.append("g")
+      .attr("transform", "translate(" + 0 + "," + (height - padding) + ")")
+      .call(axisX);
+
     svg.selectAll("circle")
       .data(ds)
       .enter()
