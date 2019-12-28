@@ -22,9 +22,13 @@
       .range([height - padding, padding])
 
     const axisX = d3.axisBottom(xScale);
+    const axisY = d3.axisLeft(yScale);
     svg.append("g")
       .attr("transform", "translate(" + 0 + "," + (height - padding) + ")")
       .call(axisX);
+    svg.append("g")
+      .attr("transform", "translate(" + padding + "," + 0 + ")")
+      .call(axisY);
 
     svg.selectAll("circle")
       .data(ds)
@@ -32,15 +36,8 @@
       .append("circle")
       .attr("cx", d => { return xScale(d[0]); })
       .attr("cy", d => { return yScale(d[1]); })
+      .attr("fill", "SkyBlue")
       .attr("r", 4);
-    svg.selectAll("text")
-      .data(ds)
-      .enter()
-      .append("text")
-      .attr("x", d => { return xScale(d[0]) + 5; })
-      .attr("y", d => { return yScale(d[1]) + 5; })
-      .attr("fill", "red")
-      .text(d => { return `${d[0]}, ${d[1]}` });
   </script>
 </body>
 
