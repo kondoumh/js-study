@@ -8,8 +8,8 @@
 
 <body>
   <script type="text/javascript">
-    const width = 400;
-    const height = 300;
+    const width = 800;
+    const height = 600;
     const svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
     const ds = [];
     for (let i = 0; i < 300; i++) {
@@ -20,31 +20,31 @@
         "y": height / 2 + r * Math.sin(t)
       });
     }
-    const padding = 30;
-    const xScale = d3.scaleLinear()
-      .domain([0, d3.max(ds, d => { return d[0]; })])
-      .range([padding, width - padding]);
-    const yScale = d3.scaleLinear()
-      .domain([0, d3.max(ds, d => { return d[1]; })])
-      .range([height - padding, padding])
+    const xScale = d3.scaleLinear().domain([0, width]).range([0, width]);
+    const yScale = d3.scaleLinear().domain([0, height]).range([0, height]);
 
-    const axisX = d3.axisBottom(xScale);
-    const axisY = d3.axisLeft(yScale);
-    svg.append("g")
-      .attr("transform", "translate(" + 0 + "," + (height - padding) + ")")
-      .call(axisX);
-    svg.append("g")
-      .attr("transform", "translate(" + padding + "," + 0 + ")")
-      .call(axisY);
+    const axisX = d3.axisBottom(xScale)
+      .ticks(width / height * 10)
+      .tickSize(height)
+      .tickPadding(8 - height);
+    const axisY = d3.axisRight(yScale)
+      .ticks(10)
+      .tickSize(width)
+      .tickPadding(8 - width);
+
+    const gX = svg.append("g").call(axisX);
+    const gY = svg.append("g").call(axisY);
 
     svg.selectAll("circle")
       .data(ds)
       .enter()
       .append("circle")
-      .attr("cx", d => { return xScale(d[0]); })
-      .attr("cy", d => { return yScale(d[1]); })
-      .attr("fill", "SkyBlue")
-      .attr("r", 4);
+      .attr("class", "view")
+      .attr("cx", d => { return d.x; })
+      .attr("cy", d => { return d.y; })
+      .attr("r", 5)
+      .attr("fill", "steelblue")
+      .attr("stroke", "black");
   </script>
 </body>
 
