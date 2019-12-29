@@ -1,0 +1,51 @@
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>d3 SVG graph</title>
+  <script type="text/javascript" src="http://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+    const width = 400;
+    const height = 300;
+    const svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
+    const ds = [];
+    for (let i = 0; i < 300; i++) {
+      const r = 0.5 * d3.min([height, width]) * Math.random();
+      const t = 2 * Math.PI * Math.random();
+      ds.push({
+        "x": width / 2 + r * Math.cos(t),
+        "y": height / 2 + r * Math.sin(t)
+      });
+    }
+    const padding = 30;
+    const xScale = d3.scaleLinear()
+      .domain([0, d3.max(ds, d => { return d[0]; })])
+      .range([padding, width - padding]);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(ds, d => { return d[1]; })])
+      .range([height - padding, padding])
+
+    const axisX = d3.axisBottom(xScale);
+    const axisY = d3.axisLeft(yScale);
+    svg.append("g")
+      .attr("transform", "translate(" + 0 + "," + (height - padding) + ")")
+      .call(axisX);
+    svg.append("g")
+      .attr("transform", "translate(" + padding + "," + 0 + ")")
+      .call(axisY);
+
+    svg.selectAll("circle")
+      .data(ds)
+      .enter()
+      .append("circle")
+      .attr("cx", d => { return xScale(d[0]); })
+      .attr("cy", d => { return yScale(d[1]); })
+      .attr("fill", "SkyBlue")
+      .attr("r", 4);
+  </script>
+</body>
+
+</html>
