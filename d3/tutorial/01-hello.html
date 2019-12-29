@@ -15,6 +15,14 @@
       .append("p")
       .text(num => { return num; })
       .style("color", num => { return num > 15 ? "red" : "black"; });
+    const nums2 = [30, 35, 40, 45, 50];
+    d3.select("body").selectAll("div")
+      .data(nums2)
+      .enter()
+      .append("p")
+      .style("color", "yellow")
+      .text(num => { return num; })
+
     d3.select("body").style("background-color", "gray");
   </script>
 </body>
