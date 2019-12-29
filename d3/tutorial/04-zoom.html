@@ -2,11 +2,12 @@
 
 <head>
   <meta charset="utf-8">
-  <title>d3 SVG graph</title>
+  <title>D3 v5 zoom</title>
   <script type="text/javascript" src="http://d3js.org/d3.v5.min.js"></script>
 </head>
 
 <body>
+  <button id="resetButton">reset</button>
   <script type="text/javascript">
     const width = 800;
     const height = 600;
@@ -35,7 +36,7 @@
     const gX = svg.append("g").call(axisX);
     const gY = svg.append("g").call(axisY);
 
-    svg.selectAll("circle")
+    const view = svg.selectAll("circle")
       .data(ds)
       .enter()
       .append("circle")
@@ -45,6 +46,30 @@
       .attr("r", 5)
       .attr("fill", "steelblue")
       .attr("stroke", "black");
+
+    d3.select("#resetButton")
+      .on("click", resetted);
+
+    const zoom = d3.zoom()
+      .scaleExtent([1, 40])
+      .translateExtent([
+        [-100, -100],
+        [width + 90, height + 100]
+      ])
+      .on("zoom", zoomed);
+    svg.call(zoom);
+
+    function zoomed() {
+      view.attr("transform", d3.event.transform);
+      gX.call(axisX.scale(d3.event.transform.rescaleX(xScale)));
+      gY.call(axisY.scale(d3.event.transform.rescaleY(yScale)));
+    }
+
+    function resetted() {
+      svg.transition()
+        .duration(750)
+        .call(zoom.transform, d3.zoomIdentity);
+    }
   </script>
 </body>
 
