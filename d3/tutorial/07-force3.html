@@ -1,0 +1,36 @@
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>D3 v5 force simulation node detail</title>
+  <script type="text/javascript" src="http://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+  <svg width="800" height="600"></svg>
+  <script>
+    const width = document.querySelector("svg").clientWidth;
+    const height = document.querySelector("svg").clientHeight;
+    const nodeNumber = 30;
+    const nodesData = [];
+    for (let i = 0; i < nodeNumber; i++) {
+      nodesData.push({
+        "index": i,
+        "x": width * Math.random(),
+        "y": height * Math.random(),
+        "r": 10
+      });
+    }
+    const linksData = [];
+    let i = 0;
+    for (let j = i + 1; j < nodeNumber; j++) {
+      linksData.push({
+        "source": i,
+        "target": j,
+        "l": Math.random() * 150 + 5 + nodesData[i].r + nodesData[j].r
+      });
+    }
+  </script>
+</body>
+
+</html>
