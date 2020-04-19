@@ -18,21 +18,35 @@
   .conected {
     fill: orange;
   }
+
+  html, body {
+    margin:0;
+    padding:0;
+    overflow:hidden
+  }
+
+  svg {
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%
+  }
 </style>
 
 <body>
-  <svg width="800" height="600"></svg>
+  <svg></svg>
   <script>
     const width = document.querySelector("svg").clientWidth;
     const height = document.querySelector("svg").clientHeight;
-    const nodeNumber = 30;
+    const nodeNumber = 40;
     const nodesData = [];
     for (let i = 0; i < nodeNumber; i++) {
       nodesData.push({
         "index": i,
         "x": width * Math.random(),
         "y": height * Math.random(),
-        "r": 10
+        "r": 15
       });
     }
     const linksData = [];
