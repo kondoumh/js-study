@@ -37,10 +37,14 @@
 <body>
   <svg></svg>
   <script>
+  (async () => {
     const width = document.querySelector("svg").clientWidth;
     const height = document.querySelector("svg").clientHeight;
     const nodeNumber = 40;
     const nodesData = [];
+    const res = await fetch("help-jp_graph.json");
+    const json = await res.json();
+    console.log(json);
     for (let i = 0; i < nodeNumber; i++) {
       nodesData.push({
         "index": i,
@@ -174,6 +178,8 @@
       d.fx = null;
       d.fy = null;
     }
+  })();
+
   </script>
 </body>
 
