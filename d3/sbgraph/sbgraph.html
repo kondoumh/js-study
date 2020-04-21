@@ -46,7 +46,8 @@
         "index": i,
         "x": width * Math.random(),
         "y": height * Math.random(),
-        "r": 15
+        "rx": 70,
+        "ry": 20
       });
     }
     const linksData = [];
@@ -56,7 +57,7 @@
           linksData.push({
             "source": i,
             "target": j,
-            "l": Math.random() * 150 + 5 + nodesData[i].r + nodesData[j].r
+            "l": Math.random() * 400 + 5 + nodesData[i].rx + nodesData[j].ry
           });
         }
       }
@@ -70,21 +71,32 @@
       .attr("stroke-width", 2)
       .attr("stroke", "black")
 
-    const d3_drag = d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended)
-
-    const node = d3.select("svg")
-      .selectAll("circle")
+    const nodeGroup = d3.select("svg")
+      .selectAll("g")
       .data(nodesData)
       .enter()
-      .append("circle")
-      .attr("r", d => { return d.r; })
+      .append("g")
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended))
+      .on("click", clicked);
+
+    nodeGroup.append("ellipse")
+      .attr("cx", d => { return d.x; })
+      .attr("cy", d => { return d.y; })
+      .attr("rx", d => { return d.rx; })
+      .attr("ry", d => { return d.ry; })
       .attr("fill", "Gold")
       .attr("stroke", "black")
-      .call(d3_drag)
-      .on("click", clicked);
+
+    nodeGroup.append("text")
+      .attr("x", d => { return d.x; })
+      .attr("y", d => { return d.y; })
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .style("fill", "steelbule")
+      .text("fooooooooooo")
 
     function clicked(d) {
       d3.selectAll(".selected").classed("selected", false);
@@ -96,12 +108,12 @@
       d3.selectAll("line")
         .filter((v, i) => {
           if (d == v.source) {
-            node.each((vj, j) => {
+            nodeGroup.each((vj, j) => {
               if (v.target == vj) d3.select(this).classed("conected", true);
             });
             return true;
           } else if (d == v.target) {
-            node.each((vj, j) => {
+            nodeGroup.each((vj, j) => {
               if (v.source == vj) d3.select(this).classed("conected", true);
             });
             return true;
@@ -138,9 +150,12 @@
         .attr("y1", d => { return d.source.y; })
         .attr("x2", d => { return d.target.x; })
         .attr("y2", d => { return d.target.y; })
-      node
+      nodeGroup.select("ellipse")
         .attr("cx", d => { return d.x; })
         .attr("cy", d => { return d.y; });
+      nodeGroup.select("text")
+        .attr("x", d => { return d.x; })
+        .attr("y", d => { return d.y; });
     }
 
     function dragstarted(d) {
