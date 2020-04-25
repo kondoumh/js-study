@@ -40,32 +40,36 @@
   (async () => {
     const width = document.querySelector("svg").clientWidth;
     const height = document.querySelector("svg").clientHeight;
-    const nodeNumber = 40;
-    const nodesData = [];
+
     const res = await fetch("help-jp_graph.json");
     const json = await res.json();
-    console.log(json);
-    for (let i = 0; i < nodeNumber; i++) {
+    console.log(json.pages);
+    console.log(json.links)
+
+    const nodesData = [];
+    for (let i = 0; i < json.pages.length; i++) {
       nodesData.push({
         "index": i,
+        "id": json.pages[i].id,
+        "title": json.pages[i].title,
         "x": width * Math.random(),
         "y": height * Math.random(),
         "rx": 70,
         "ry": 20
       });
     }
+    console.log(nodesData);
     const linksData = [];
-    for (let i = 0; i < nodeNumber; i++) {
-      for (let j = i + 1; j < nodeNumber; j++) {
-        if (Math.random() > 0.9) {
-          linksData.push({
-            "source": i,
-            "target": j,
-            "l": Math.random() * 400 + 5 + nodesData[i].rx + nodesData[j].ry
-          });
-        }
-      }
-    }
+    json.links.forEach(link => {
+      const from = nodesData.find(node => node.id === link.from);
+      const to = nodesData.find(node => node.id === link.to);
+      linksData.push({
+        "source": from.index,
+        "target": to.index,
+        "l": Math.random() * 400 + 5 + 70 + 20
+      });
+    });
+    console.log(linksData);
 
     const link = d3.select("svg")
       .selectAll("line")
@@ -100,7 +104,7 @@
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
       .style("fill", "steelbule")
-      .text("fooooooooooo")
+      .text(d => { return d.title })
 
     function clicked(d) {
       d3.selectAll(".selected").classed("selected", false);
