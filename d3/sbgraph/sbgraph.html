@@ -67,7 +67,7 @@
       .enter()
       .append("line")
       .attr("stroke-width", 2)
-      .attr("stroke", "black")
+      .attr("stroke", "black");
 
     const nodeGroup = d3.select("svg")
       .selectAll("g")
@@ -86,7 +86,7 @@
       .attr("rx", d => { return d.rx; })
       .attr("ry", d => { return d.ry; })
       .attr("fill", "Gold")
-      .attr("stroke", "black")
+      .attr("stroke", "black");
 
     nodeGroup.append("text")
       .attr("x", d => { return d.x; })
@@ -94,7 +94,7 @@
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
       .style("fill", "steelbule")
-      .text(d => { return d.title })
+      .text(d => { return d.title });
 
     function clicked(d) {
       d3.selectAll(".selected").classed("selected", false);
