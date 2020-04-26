@@ -44,28 +44,22 @@
     const res = await fetch("help-jp_graph.json");
     const json = await res.json();
 
-    const nodesData = [];
-    for (let i = 0; i < json.pages.length; i++) {
-      nodesData.push({
-        "index": i,
-        "id": json.pages[i].id,
-        "title": json.pages[i].title,
-        "x": width * Math.random(),
-        "y": height * Math.random(),
-        "rx": 70,
-        "ry": 20
-      });
-    }
-    const linksData = [];
-    json.links.forEach(link => {
-      const from = nodesData.find(node => node.id === link.from);
-      const to = nodesData.find(node => node.id === link.to);
-      linksData.push({
-        "source": from.index,
-        "target": to.index,
-        "l": Math.random() * 400 + 5 + 70 + 20
-      });
-    });
+    const nodesData = json.pages.map(page =>
+    ({
+      id: page.id,
+      title: page.title,
+      x: width * Math.random(),
+      y: height * Math.random(),
+      rx: 70,
+      ry: 20
+    }));
+
+    const linksData = json.links.map(link =>
+    ({
+      source: nodesData.findIndex(node => node.id === link.from),
+      target: nodesData.findIndex(node => node.id === link.to),
+      l: Math.random() * 400 + 5 + 70 + 20
+    }));
 
     const link = d3.select("svg")
       .selectAll("line")
