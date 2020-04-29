@@ -49,6 +49,14 @@
   <svg></svg>
   <script>
   (async () => {
+    document.querySelector("#show-author").addEventListener("change", async e => {
+      d3.select("svg").selectAll("*").remove();
+      await showGraph(e.target.checked);
+    });
+    await showGraph(false);
+  })();
+
+  async function showGraph(showAuthor) {
     const width = document.querySelector("svg").clientWidth;
     const height = document.querySelector("svg").clientHeight;
 
@@ -66,17 +74,18 @@
       user: false
     }));
 
-    const users = json.users.map(user => ({
-      id: user.id,
-      title: user.name,
-      x: width * Math.random(),
-      y: height * Math.random(),
-      rx: 70,
-      ry: 20,
-      user: true
-    }));
-
-    nodesData = nodesData.concat(users);
+    if (showAuthor) {
+      const users = json.users.map(user => ({
+        id: user.id,
+        title: user.name,
+        x: width * Math.random(),
+        y: height * Math.random(),
+        rx: 70,
+        ry: 20,
+        user: true
+      }));
+      nodesData = nodesData.concat(users);
+    }
 
     let linksData = json.links.map(link =>
     ({
@@ -85,14 +94,15 @@
       l: Math.random() * 200 + 5 + 70 + 20
     }));
 
-    const userPages = json.userPages.map(up =>
-    ({
-      source: nodesData.findIndex(node => node.id === up.user),
-      target: nodesData.findIndex(node => node.id === up.page),
-      l: Math.random() * 200 + 5 + 70 + 20
-    }));
-
-    linksData = linksData.concat(userPages);
+    if (showAuthor) {
+      const userPages = json.userPages.map(up =>
+      ({
+        source: nodesData.findIndex(node => node.id === up.user),
+        target: nodesData.findIndex(node => node.id === up.page),
+        l: Math.random() * 200 + 5 + 70 + 20
+      }));
+      linksData = linksData.concat(userPages);
+    }
 
     const link = d3.select("svg")
       .selectAll("line")
@@ -205,8 +215,7 @@
       d.fx = null;
       d.fy = null;
     }
-  })();
-
+  }
   </script>
 </body>
 
