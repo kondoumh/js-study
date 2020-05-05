@@ -45,22 +45,37 @@
     <label for="show-author">show author</label>&nbsp;&nbsp;
     <label for="views-threshold">min views</label>
     <input type="number" id="views-threshold" min="0" max="1000" step="100" value="0">
+    <input type="radio" id="project1" name="project" onchange="chnageProject(this);" value="kondoumh" checked>kondoumh
+    <input type="radio" id="project2" name="project" onchange="chnageProject(this);" value="help-jp">help-jp
   </div>
   <svg></svg>
   <script>
   (async () => {
     document.querySelector("#show-author").addEventListener("change", async e => {
       d3.select("svg").selectAll("*").remove();
-      await showGraph(e.target.checked);
+      await showGraph(e.target.checked, getSelectedProject());
     });
-    await showGraph(false);
+    await showGraph(false, getSelectedProject());
   })();
 
-  async function showGraph(showAuthor) {
+  function getSelectedProject() {
+    pj1 = document.querySelector("#project1")
+    pj2 = document.querySelector("#project2")
+    if (pj1.checked) return pj1.value
+    if (pj2.checked) return pj2.value
+  }
+
+  async function chnageProject(src) {
+    d3.select("svg").selectAll("*").remove();
+    checked = document.querySelector("#show-author").checked
+    await showGraph(checked, getSelectedProject());
+  }
+
+  async function showGraph(showAuthor, projectName) {
     const width = document.querySelector("svg").clientWidth;
     const height = document.querySelector("svg").clientHeight;
 
-    const res = await fetch("help-jp_graph.json");
+    const res = await fetch(`https://sb-data-kondoumh.netlify.app/${projectName}_graph.json`, { mode: "cors" });
     const json = await res.json();
 
     let nodesData = json.pages.map(page =>
