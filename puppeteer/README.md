@@ -1,0 +1,2 @@
+- https://github.com/puppeteer/puppeteer/blob/master/docs/api.md
+- https://github.com/checkly/puppeteer-examples
