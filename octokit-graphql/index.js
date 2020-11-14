@@ -12,7 +12,7 @@ async function query1() {
       }
     }
   }
-  `
+  `;
   const repo = await request(query);
   console.log(repo.pullRequests);
 }
@@ -45,7 +45,7 @@ async function query2() {
       }
     }
   }
-  `
+  `;
   const repo = await request(query);
   console.log(repo.pullRequest.numer);
   console.log(repo.pullRequest.url);
@@ -53,7 +53,34 @@ async function query2() {
   console.log(repo.pullRequest.commits.nodes);
 }
 
-query2();
+//query2();
+
+async function query3() {
+  const query = `
+  {
+    repository(owner: "kondoumh", name: "sbe") {
+      content:object(expression: "master:README.md") {
+        ... on Blob {
+          text
+        }
+      }
+      filename: object(expression: "master:src/") {
+        ... on Tree {
+          entries {
+            name
+            oid
+          }
+        }
+      }
+    }
+  }
+  `;
+  const repo = await request(query);
+  console.log(repo.content.text);
+  console.log(repo.filename.entries);
+}
+
+query3();
 
 async function request(query) {
   const graphqlWithAuth = graphql.defaults({
@@ -64,4 +91,3 @@ async function request(query) {
   const { repository } = await graphqlWithAuth(query);
   return repository;
 }
-
