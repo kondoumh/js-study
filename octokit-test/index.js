@@ -25,4 +25,11 @@ async function getSha() {
   const data = await jq.run(`.data | map(select(.name == "renderer.js")) | .[0].sha`, files, {input: 'json'});
   const sha = data.replace(/['"]+/g, '');
   console.log(sha);
+  const blob = await octokit.git.getBlob({
+    owner: "kondoumh",
+    repo: "sbe",
+    file_sha: sha
+  })
+  const content = new Buffer.from(blob.data.content, blob.data.encoding).toString();
+  console.log(content);
 }
