@@ -2,7 +2,7 @@ const { Octokit } = require("@octokit/rest");
 const jq = require("node-jq");
 
 //getContent();
-getLargeContent()
+getLargeContent();
 
 async function getContent() {
   const octokit = new Octokit();
@@ -21,7 +21,7 @@ async function getLargeContent() {
     owner: "kondoumh",
     repo: "sbe",
     path: "src"
-  })
+  });
   const data = await jq.run('.data | map(select(.name == "renderer.js")) | .[0].sha', files, {input: 'json'});
   const sha = data.replace(/['"]+/g, '');
   console.log(sha);
@@ -29,7 +29,7 @@ async function getLargeContent() {
     owner: "kondoumh",
     repo: "sbe",
     file_sha: sha
-  })
+  });
   const content = new Buffer.from(blob.data.content, blob.data.encoding).toString();
   console.log(content);
 }
