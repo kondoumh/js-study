@@ -1,8 +1,8 @@
-const { Octokit} = require("@octokit/rest");
+const { Octokit } = require("@octokit/rest");
 const jq = require("node-jq");
 
 //getContent();
-getSha()
+getLargeContent()
 
 async function getContent() {
   const octokit = new Octokit();
@@ -15,14 +15,14 @@ async function getContent() {
   console.log(data);
 }
 
-async function getSha() {
+async function getLargeContent() {
   const octokit = new Octokit();
   const files = await octokit.repos.getContent({
     owner: "kondoumh",
     repo: "sbe",
     path: "src"
   })
-  const data = await jq.run(`.data | map(select(.name == "renderer.js")) | .[0].sha`, files, {input: 'json'});
+  const data = await jq.run('.data | map(select(.name == "renderer.js")) | .[0].sha', files, {input: 'json'});
   const sha = data.replace(/['"]+/g, '');
   console.log(sha);
   const blob = await octokit.git.getBlob({
