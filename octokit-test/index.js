@@ -1,11 +1,7 @@
 const { Octokit} = require("@octokit/rest");
 
-const octokit = new Octokit({
-  auth: "your_access_token",
-  baseUrl: "https://api.github.com",
-});
-
 (async () => {
+  const octokit = new Octokit();
   const content = await octokit.repos.getContent({
     owner: "kondoumh",
     repo: "mtwe",
@@ -14,4 +10,3 @@ const octokit = new Octokit({
   const data = new Buffer.from(content.data.content, content.data.encoding).toString();
   console.log(data);
 })();
-
