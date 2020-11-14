@@ -17,11 +17,12 @@ async function getContent() {
 
 async function getSha() {
   const octokit = new Octokit();
-  const content = await octokit.repos.getContent({
+  const files = await octokit.repos.getContent({
     owner: "kondoumh",
     repo: "sbe",
     path: "src"
   })
-  res = await jq.run('.data | map({ name: .name, sha: .sha })', content, {input: 'json'});
-  console.log(res);
+  const data = await jq.run(`.data | map(select(.name == "renderer.js")) | .[0].sha`, files, {input: 'json'});
+  const sha = data.replace(/['"]+/g, '');
+  console.log(sha);
 }
