@@ -1,7 +1,7 @@
 <script>
 	let src = 'tutorial/image.gif'
 	let name = 'Rick Astley';
-	import Nested from './Nested.svelte';
+	import Nested from './Nested_1.svelte';
 	let string = `this string contains some <strong>HTML!!!</strong>`
 </script>
 
