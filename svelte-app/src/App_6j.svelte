@@ -32,7 +32,7 @@
     }
 
     function cancel() {
-      e.target.removeElementListener('mouseup', handleMouseup);
+      e.target.removeEventListener('mouseup', handleMouseup);
     }
 
     e.target.addEventListener('mouseup', handleMouseup);
@@ -113,7 +113,10 @@
     poster="https://sveltejs.github.io/assets/caminandes-llamigos.jpg"
     src="https://sveltejs.github.io/assets/caminandes-llamigos.mp4"
     on:mousemove={handleMousemove}
-    on:mousedown={handleMousedown}>
+    on:mousedown={handleMousedown}
+    bind:currentTime={time}
+    bind:duration
+    bind:paused>
     <track kind="captions">
   </video>
 
