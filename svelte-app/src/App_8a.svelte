@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte';
   import { count } from './stores';
   import Incrementer from './Incrementer.svelte';
   import Decrementer from './Decrementer.svelte';
@@ -9,6 +10,8 @@
   const unsubscribe = count.subscribe(value => {
     count_value = value;
   });
+
+  onDestroy(unsubscribe);
 </script>
 
 <h1>The count is {count_value}</h1>
