@@ -31,3 +31,10 @@ function createCounter() {
 }
 
 export const counter = createCounter();
+
+export const name = writable('world');
+
+export const greeting = derived(
+  name,
+  $name => `Hello ${$name}`
+);
