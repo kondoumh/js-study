@@ -1,4 +1,4 @@
-import App from './App_9a.svelte';
+import App from './App_9b.svelte';
 
 var app = new App({
 	target: document.body
