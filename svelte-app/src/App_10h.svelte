@@ -2,7 +2,7 @@
   import { quintOut } from 'svelte/easing';
   import { crossfade } from 'svelte/transition';
 
-  const [send, recieve] = crossfade({
+  const [send, receive] = crossfade({
     duration: d => Math.sqrt(d * 200),
 
     fallback(node, params) {
@@ -20,7 +20,7 @@
     }
   });
 
-  let uid = 1
+  let uid = 1;
 
   let todos = [
     { id: uid++, done: false, description: 'write some docs' },
@@ -63,10 +63,10 @@
     <h2>todo</h2>
     {#each todos.filter(t => !t.done) as todo (todo.id)}
       <label
-        in:recieve="{{key: todo.id}}"
+        in:receive="{{key: todo.id}}"
         out:send="{{key: todo.id}}"
       >
-        <input type=checkbox checked on:change={() => mark(todo, true)}>
+        <input type=checkbox on:change={() => mark(todo, true)}>
         {todo.description}
         <button on:click="{() => remove(todo)}">remove</button>
       </label>
@@ -78,7 +78,7 @@
     {#each todos.filter(t => t.done) as todo (todo.id)}
       <label
         class="done"
-        in:recieve="{{key: todo.id}}"
+        in:receive="{{key: todo.id}}"
         out:send="{{key: todo.id}}"
       >
         <input type=checkbox checked on:change={() => mark(todo, false)}>
@@ -114,11 +114,11 @@
     position: relative;
     line-height: 1.2;
     padding: 0.5em 2.5em 0.5em 2em;
-    margin: 0 0  0.55em 0;
+    margin: 0 0 0.5em 0;
     border-radius: 2px;
     user-select: none;
     border: 1px solid hsl(240, 8%, 70%);
-    background-color: hsl(240, 8%, 93%);
+    background-color:hsl(240, 8%, 93%);
     color: #333;
   }
 
@@ -127,6 +127,11 @@
     left: 0.5em;
     top: 0.6em;
     margin: 0;
+  }
+
+  .done {
+    border: 1px solid hsl(240, 8%, 90%);
+    background-color:hsl(240, 8%, 98%);
   }
 
   button {
