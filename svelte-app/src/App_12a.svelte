@@ -2,7 +2,7 @@
   import { spring } from 'svelte/motion';
   import { pannable } from './pannable.js';
 
-  const coords = spring({ x: 0, y: 0}, {
+  const coords = spring({ x: 0, y: 0 }, {
     stiffness: 0.2,
     damping: 0.4
   });
@@ -46,6 +46,6 @@
   on:panmove={handlePanMove}
   on:panend={handlePanEnd}
   style="transform:
-    translate=({$coords.x}px, {$coords.y}px)
+    translate({$coords.x}px,{$coords.y}px)
     rotate({$coords.x * 0.2}deg)"
 ></div>

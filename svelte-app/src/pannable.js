@@ -43,5 +43,5 @@ export function pannable(node) {
     destroy() {
       node.removeEventListener('mousedown', handleMousedown);
     }
-  }
+  };
 }
