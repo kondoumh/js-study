@@ -13,6 +13,6 @@
   big
 </label>
 
-<dib class:big={big}>
+<dib class:big}>
   some {big ? 'big' : 'small'} text
 </dib>
