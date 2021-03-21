@@ -14,16 +14,16 @@
 </style>
 
 <button
-  class="{current === 'foo' ? 'selected' : ''}"
+  class:selected="{current === 'foo'}"
   on:click="{() => current = 'foo'}"
 >foo</button>
 
 <button
-  class="{current === 'bar' ? 'selected' : ''}"
+  class:selected="{current === 'bar'}"
   on:click="{() => current = 'bar'}"
 >bar</button>
 
 <button
-  class="{current === 'baz' ? 'selected' : ''}"
+  class:selected="{current === 'baz'}"
   on:click="{() => current = 'baz'}"
 >baz</button>
