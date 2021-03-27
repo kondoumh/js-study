@@ -1,7 +1,8 @@
-import mapbox from from 'mapbox-gl';
+import mapbox from 'mapbox-gl';
 
+// https://docs.mapbox.com/help/glossary/access-token/
 mapbox.accessToken = MAPBOX_ACCESS_TOKEN;
 
-const key = {}
+const key = {};
 
 export { mapbox, key };
