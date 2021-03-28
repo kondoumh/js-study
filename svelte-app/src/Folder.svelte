@@ -42,7 +42,7 @@
     {#each files as file}
       <li>
         {#if file.type === 'folder'}
-          <svelte:self {...'file'}/>
+          <svelte:self {...file}/>
         {:else}
           <File {...file}/>
         {/if}

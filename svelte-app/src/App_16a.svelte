@@ -18,7 +18,7 @@
           name: 'Dogs',
           files: [
             { type: 'file', name: 'treadmill.gif' },
-            { type: 'file', name: 'rope-jumping.fig' }
+            { type: 'file', name: 'rope-jumping.gif' }
           ]
         },
         {
@@ -35,7 +35,7 @@
       ]
     },
     { type: 'file', name: 'TODO.md' }
-  ]
+  ];
 </script>
 
 <Folder name="Home" files={root} expanded/>
