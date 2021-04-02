@@ -1,6 +1,4 @@
 <script>
-import { mapbox } from "./mapbox";
-
   const layers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   let y;
@@ -41,6 +39,13 @@ import { mapbox } from "./mapbox";
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    will-change: transform;
+  }
+
+  .parallax-container img:last-child::after {
+    content: '';
+    position: absolute;
     width: 100%;
     height: 100%;
     background: rgb(45,10,13);
