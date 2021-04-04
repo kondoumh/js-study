@@ -1,4 +1,8 @@
 <script context="module">
+  let current;
+</script>
+
+<script>
   export let src;
   export let title;
   export let composer;
