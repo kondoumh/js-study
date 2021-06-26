@@ -76,17 +76,23 @@ async function runSample() {
       //   "bucketByActivityType": {},
       //   "bucketBySession": {},
       "bucketByTime": { "durationMillis": 86400000 },
-      "startTimeMillis": 1593640800000,
-      "endTimeMillis": 1593727199999,
+      "startTimeMillis": 1624658400000,
+      "endTimeMillis": 1624698000000,
       //   "filteredDataQualityStandard": [],
     },
   });
-  const point = res.data.bucket[0].dataset[0].point[0];
-  console.log(point.originDataSourceId);
-  console.log(formatDate(point.startTimeNanos));
-  console.log(formatDate(point.endTimeNanos));
-  console.log(point.dataTypeName);
-  console.log(point.value[0].intVal);
+  const steps = res.data.bucket[0].dataset[0].point[0];
+  console.log(steps.originDataSourceId);
+  console.log(formatDate(steps.startTimeNanos));
+  console.log(formatDate(steps.endTimeNanos));
+  console.log(steps.dataTypeName);
+  console.log(steps.value[0].intVal);
+  const weight = res.data.bucket[0].dataset[1].point[0];
+  console.log(weight.originDataSourceId);
+  console.log(formatDate(weight.startTimeNanos));
+  console.log(formatDate(weight.endTimeNanos));
+  console.log(weight.dataTypeName);
+  console.log(weight.value[0].fpVal);
 }
 
 function formatDate(timestamp) {
