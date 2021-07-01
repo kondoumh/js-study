@@ -54,7 +54,7 @@ async function authenticate(scopes) {
   });
 }
 
-async function runSample() {
+async function aggregate() {
   // retrieve user profile
   const res = await fitness.users.dataset.aggregate({
     // Aggregate data for the person identified. Use me to indicate the authenticated user. Only me is supported at this time.
@@ -112,5 +112,5 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 authenticate(scopes)
-  .then(client => runSample(client))
+  .then(client => aggregate(client))
   .catch(console.error);
