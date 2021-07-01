@@ -8,7 +8,7 @@ const opn = require('open');
 const destroyer = require('server-destroy');
 
 const {google} = require('googleapis');
-const people = google.people('v1');
+const fitness = google.fitness('v1');
 
 const keyPath = path.join(__dirname, 'oauth2.keys.json');
 let keys = {redirect_uris: ['']};
@@ -54,20 +54,63 @@ async function authenticate(scopes) {
   });
 }
 
-async function runSample() {
+async function aggregate() {
   // retrieve user profile
-  const res = await people.people.get({
-    resourceName: 'people/me',
-    personFields: 'emailAddresses',
+  const res = await fitness.users.dataset.aggregate({
+    // Aggregate data for the person identified. Use me to indicate the authenticated user. Only me is supported at this time.
+    userId: 'me',
+
+    // Request body metadata
+    requestBody: {
+      "aggregateBy": [
+        {
+          "dataTypeName": "com.google.step_count.delta",
+          "dataSourceId": "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps"
+        },
+        {
+          "dataTypeName": "com.google.weight.summary",
+          "dataSourceId": "derived:com.google.weight:com.google.android.gms:merge_weight"
+        },
+      ],
+      //   "bucketByActivitySegment": {},
+      //   "bucketByActivityType": {},
+      //   "bucketBySession": {},
+      "bucketByTime": { "durationMillis": 86400000 },
+      "startTimeMillis": 1624658400000,
+      "endTimeMillis": 1624698000000,
+      //   "filteredDataQualityStandard": [],
+    },
   });
-  console.log(res.data);
+  const steps = res.data.bucket[0].dataset[0].point[0];
+  console.log(steps.originDataSourceId);
+  console.log(formatDate(steps.startTimeNanos));
+  console.log(formatDate(steps.endTimeNanos));
+  console.log(steps.dataTypeName);
+  console.log(steps.value[0].intVal);
+  const weight = res.data.bucket[0].dataset[1].point[0];
+  console.log(weight.originDataSourceId);
+  console.log(formatDate(weight.startTimeNanos));
+  console.log(formatDate(weight.endTimeNanos));
+  console.log(weight.dataTypeName);
+  console.log(weight.value[0].fpVal);
+}
+
+function formatDate(timestamp) {
+  let date = new Date();
+  date.setTime(timestamp / 1000000);
+  const params = {
+    year: 'numeric', month: 'numeric', day: 'numeric',
+    hour: 'numeric', minute: 'numeric', second: 'numeric',
+    hour12: false
+  };
+  return date.toLocaleString("ja", params);
 }
 
 const scopes = [
-  'https://www.googleapis.com/auth/contacts.readonly',
-  'https://www.googleapis.com/auth/user.emails.read',
-  'profile',
+  'https://www.googleapis.com/auth/fitness.activity.read',
+  'https://www.googleapis.com/auth/fitness.body.read',
+  'https://www.googleapis.com/auth/fitness.body.write',
 ];
 authenticate(scopes)
-  .then(client => runSample(client))
+  .then(client => aggregate(client))
   .catch(console.error);
