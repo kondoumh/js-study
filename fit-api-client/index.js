@@ -7,11 +7,11 @@ const url = require('url');
 const opn = require('open');
 const destroyer = require('server-destroy');
 
-const {google} = require('googleapis');
+const { google } = require('googleapis');
 const fitness = google.fitness('v1');
 
 const keyPath = path.join(__dirname, 'oauth2.keys.json');
-let keys = {redirect_uris: ['']};
+let keys = { redirect_uris: [''] };
 if (fs.existsSync(keyPath)) {
   keys = require(keyPath).web;
 }
@@ -22,7 +22,7 @@ const oauth2Client = new google.auth.OAuth2(
   keys.redirect_uris[0]
 );
 
-google.options({auth: oauth2Client});
+google.options({ auth: oauth2Client });
 
 async function authenticate(scopes) {
   return new Promise((resolve, reject) => {
@@ -38,7 +38,7 @@ async function authenticate(scopes) {
               .searchParams;
             res.end('Authentication successful! Please return to the console.');
             server.destroy();
-            const {tokens} = await oauth2Client.getToken(qs.get('code'));
+            const { tokens } = await oauth2Client.getToken(qs.get('code'));
             oauth2Client.credentials = tokens; // eslint-disable-line require-atomic-updates
             resolve(oauth2Client);
           }
@@ -48,7 +48,7 @@ async function authenticate(scopes) {
       })
       .listen(3000, () => {
         // open the browser to the authorize url to start the workflow
-        opn(authorizeUrl, {wait: false}).then(cp => cp.unref());
+        opn(authorizeUrl, { wait: false }).then(cp => cp.unref());
       });
     destroyer(server);
   });
@@ -87,6 +87,7 @@ async function aggregate() {
   console.log(formatDate(steps.endTimeNanos));
   console.log(steps.dataTypeName);
   console.log(steps.value[0].intVal);
+
   const weight = res.data.bucket[0].dataset[1].point[0];
   console.log(weight.originDataSourceId);
   console.log(formatDate(weight.startTimeNanos));
