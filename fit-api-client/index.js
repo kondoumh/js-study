@@ -54,7 +54,7 @@ async function authenticate(scopes) {
   });
 }
 
-async function aggregate() {
+async function aggregate(client, from, to) {
   // retrieve user profile
   const res = await fitness.users.dataset.aggregate({
     // Aggregate data for the person identified. Use me to indicate the authenticated user. Only me is supported at this time.
@@ -76,8 +76,8 @@ async function aggregate() {
       //   "bucketByActivityType": {},
       //   "bucketBySession": {},
       "bucketByTime": { "durationMillis": 86400000 },
-      "startTimeMillis": 1624658400000,
-      "endTimeMillis": 1624698000000,
+      "startTimeMillis": from.getTime(),
+      "endTimeMillis": to.getTime(),
       //   "filteredDataQualityStandard": [],
     },
   });
@@ -112,6 +112,16 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.read',
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
+
+function getYesterday(hours) {
+  let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+  yesterday.setHours(hours, 0, 0);
+  return yesterday;
+}
+
+const from = getYesterday(7);
+const to = getYesterday(23);
+
 authenticate(scopes)
-  .then(client => aggregate(client))
+  .then(client => aggregate(client, from, to))
   .catch(console.error);
