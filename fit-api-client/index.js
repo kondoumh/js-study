@@ -113,14 +113,14 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 
-function getYesterday(hours) {
-  let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-  yesterday.setHours(hours, 0, 0);
-  return yesterday;
+function getPastday(days, hours) {
+  let pastday = new Date(new Date().setDate(new Date().getDate() - days));
+  pastday.setHours(hours, 0, 0);
+  return pastday;
 }
 
-const from = getYesterday(7);
-const to = getYesterday(23);
+const from = getPastday(1, 7);
+const to = getPastday(1, 23);
 
 authenticate(scopes)
   .then(client => aggregate(client, from, to))
