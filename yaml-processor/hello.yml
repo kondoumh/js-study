@@ -1,0 +1,4 @@
+func: print
+args:
+    - Hello, World!
+    - Goodbye!
