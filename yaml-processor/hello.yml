@@ -1,4 +1,9 @@
-func: print
-args:
+- func: set
+  args:
+    - your_name
+    - cuhey3
+- func: print
+  args:
     - Hello, World!
+    - your_name
     - Goodbye!
