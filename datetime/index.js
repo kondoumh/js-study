@@ -19,4 +19,3 @@ function formatDate(timestamp) {
   }
   return date.toLocaleString("ja", params)
 }
-
