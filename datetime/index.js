@@ -4,6 +4,7 @@ console.log(ms);
 console.log(formatDate(ms));
 
 let yesterday = new Date(new Date().setDate(new Date().getDate() -1));
+
 yesterday.setHours(7,0,0);
 console.log(formatDate(yesterday.getTime()));
 yesterday.setHours(23,0,0);
@@ -19,4 +20,3 @@ function formatDate(timestamp) {
   }
   return date.toLocaleString("ja", params)
 }
-
