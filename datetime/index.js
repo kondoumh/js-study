@@ -1,9 +1,14 @@
-const dt = new Date("2021-06-27T07:00:00");
-ms = dt.getTime();
+const dt = new Date("2021-07-23T08:58:26");
+const ms = dt.getTime();
 console.log(ms);
+// 1626998306000
+const ns = dt.getTime() * 1000000
+console.log(ns);
+// 1626998306000000000
+
 console.log(formatDate(ms));
 
-let yesterday = new Date(new Date().setDate(new Date().getDate() -1));
+let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
 
 yesterday.setHours(7,0,0);
 console.log(formatDate(yesterday.getTime()));
