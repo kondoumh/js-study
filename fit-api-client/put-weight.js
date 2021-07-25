@@ -86,6 +86,14 @@ async function createDataSource() {
   console.log(res);
 }
 
+async function getDataSouce(dataSourceId) {
+  const res = await fitness.users.dataSources.get({
+    dataSourceId: dataSourceId,
+    userId: "me"
+  });
+  console.log(res.data);
+}
+
 async function patch(dataSourceId, end, start, nano, val) {
   // retrieve user profile
   const res = await fitness.users.dataSources.datasets.patch({
@@ -93,7 +101,6 @@ async function patch(dataSourceId, end, start, nano, val) {
     dataSourceId: dataSourceId,
     userId: 'me',
     requestBody: {
-      "dataSourceId": dataSourceId,
       "maxEndTimeNs": end,
       "minStartTimeNs": start,
       "value": [
@@ -111,6 +118,7 @@ async function patch(dataSourceId, end, start, nano, val) {
       ]
     },
   });
+  console.log(res);
 }
 
 const scopes = [
@@ -118,24 +126,29 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 
+/*
+authenticate(scopes)
+  .then(client => getDataSouce("raw:com.google.weight:410630221267:my:foo:1000001:patch weight"))
+  .catch(console.error);
+*/
+
+/*
 authenticate(scopes)
   .then(client => createDataSource())
   .catch(console.error);
-
+*/
 
 function getNano(day) {
   const dt = new Date(day + "T07:00:00");
   return dt.getTime() * 1000000;
 }
 
-const dataSourceId = '';
+const dataSourceId = "raw:com.google.weight:410630221267:my:foo:1000001:patch weight";
 const start = getNano("2020-01-01");
 const end = getNano("2021-01-01")
 const nano = getNano("2020-12-31");
 const val = 69.3;
 
-/*
- authenticate(scopes)
+authenticate(scopes)
   .then(client => patch(dataSourceId, end, start, nano, val))
   .catch(console.error);
-*/
