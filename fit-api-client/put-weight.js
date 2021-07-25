@@ -54,47 +54,63 @@ async function authenticate(scopes) {
   });
 }
 
-async function patch(body) {
-  // retrieve user profile
-  const res = await fitness.users.dataSources.datasets.patch({
-
-    dataSourceId: 'raw:com.google.weight:com.google.android.apps.fitness:user_input',
+async function createDataSource() {
+  const res = await fitness.users.dataSources.create({
     userId: 'me',
-    requestBody: body,
-  });
-}
-
-function createRequestBody(from, to, val) {
-  return {
-    dataSourceId: 'raw:com.google.weight:com.google.android.apps.fitness:user_input',
-    maxEndTimeNs: to,
-    minStartTimeNs: from,
-    nextPageToken: "my_netxtPageToken",
-    point: [
-      {
-        dataTypeName: 'com.google.weight',
-        originDataSourceId: '',
-        startTimeNanos: from,
-        endTimeNanos: to,
-        value: [
+    requestBody: {
+      "application": {
+        name: "patch weight",
+        detailsUrl: 'https://example.com',
+        version: '1'
+      },
+      "dataType": {
+        name: 'com.google.weight',
+        field: [
           {
-            fpVal: val
+            name: 'weight',
+            format: 'floatPoint'
           }
         ]
-      }
-    ]
-  }
+      },
+      "dataStreamName": "patch weight",
+      "type": "raw",
+      "device": {
+        manufacturer: "my",
+        model: "foo",
+        type: "scale",
+        uid: "1000001",
+        version: "1.0"
+      },
+    }
+  });
+  console.log(res);
 }
 
-function formatDate(timestamp) {
-  let date = new Date();
-  date.setTime(timestamp / 1000000);
-  const params = {
-    year: 'numeric', month: 'numeric', day: 'numeric',
-    hour: 'numeric', minute: 'numeric', second: 'numeric',
-    hour12: false
-  };
-  return date.toLocaleString("ja", params);
+async function patch(dataSourceId, end, start, nano, val) {
+  // retrieve user profile
+  const res = await fitness.users.dataSources.datasets.patch({
+    datasetId: '',
+    dataSourceId: dataSourceId,
+    userId: 'me',
+    requestBody: {
+      "dataSourceId": dataSourceId,
+      "maxEndTimeNs": end,
+      "minStartTimeNs": start,
+      "value": [
+        {
+          dataTypeName: 'com.google.weight',
+          originDataSourceId: '',
+          startTimeNanos: nano,
+          endTimeNanos: nano,
+          value: [
+            {
+              fpVal: val
+            }
+          ]
+        }
+      ]
+    },
+  });
 }
 
 const scopes = [
@@ -102,15 +118,24 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 
-function getPastday(days, hours) {
-  let pastday = new Date(new Date().setDate(new Date().getDate() - days));
-  pastday.setHours(hours, 0, 0);
-  return pastday;
+authenticate(scopes)
+  .then(client => createDataSource())
+  .catch(console.error);
+
+
+function getNano(day) {
+  const dt = new Date(day + "T07:00:00");
+  return dt.getTime() * 1000000;
 }
 
-const from = getPastday(1, 7);
-const to = getPastday(1, 23);
+const dataSourceId = '';
+const start = getNano("2020-01-01");
+const end = getNano("2021-01-01")
+const nano = getNano("2020-12-31");
+const val = 69.3;
 
-authenticate(scopes)
-  .then(client => patch(createRequestBody(from, to, 67.0)))
+/*
+ authenticate(scopes)
+  .then(client => patch(dataSourceId, end, start, nano, val))
   .catch(console.error);
+*/
