@@ -59,7 +59,7 @@ async function createDataSource() {
     userId: 'me',
     requestBody: {
       "application": {
-        name: "patch weight",
+        name: "patch_weight",
         detailsUrl: 'https://example.com',
         version: '1'
       },
@@ -72,7 +72,7 @@ async function createDataSource() {
           }
         ]
       },
-      "dataStreamName": "patch weight",
+      "dataStreamName": "patch_weight",
       "type": "raw",
       "device": {
         manufacturer: "my",
@@ -83,7 +83,7 @@ async function createDataSource() {
       },
     }
   });
-  console.log(res);
+  console.log(res.data);
 }
 
 async function getDataSource(dataSourceId) {
@@ -94,12 +94,29 @@ async function getDataSource(dataSourceId) {
   console.log(res.data);
 }
 
+async function getDataSet(datasetId, dataSourceId) {
+  const res = await fitness.users.dataSources.datasets.get({
+    datasetId: datasetId,
+    dataSourceId: dataSourceId,
+    userId: "me"
+  });
+  console.log(res.data.point);
+}
+
 async function listDataSource() {
   const res = await fitness.users.dataSources.list({
     //dataTypeName: "com.google.weihgt",
     userId: "me"
   });
   console.log(res.data.dataSource);
+}
+
+async function deleteDataSource() {
+  const res = await fitness.users.dataSources.delete({
+    dataSourceId: dataSourceId,
+    userId: "me"
+  });
+  console.log(res.data);
 }
 
 async function patch(dataSourceId, datasetId, end, start, nano, val) {
@@ -112,7 +129,7 @@ async function patch(dataSourceId, datasetId, end, start, nano, val) {
       "dataSourceId": dataSourceId,
       "maxEndTimeNs": end,
       "minStartTimeNs": start,
-      "value": [
+      "point": [
         {
           dataTypeName: 'com.google.weight',
           originDataSourceId: '',
@@ -121,19 +138,13 @@ async function patch(dataSourceId, datasetId, end, start, nano, val) {
           value: [
             {
               fpVal: val
-            },
-            {
-              fpVal: val
-            },
-            {
-              fpVal: val
             }
           ]
         }
       ]
     },
   });
-  console.log(res);
+  console.log(res.data);
 }
 
 const scopes = [
@@ -141,37 +152,38 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 
-/*
-authenticate(scopes)
-  .then(client => getDataSource("raw:com.google.weight:410630221267:my:foo:1000001:patch weight"))
-  .catch(console.error);
-*/
+// authenticate(scopes)
+//   .then(client => getDataSource("xxxxxx"))
+//   .catch(console.error);
 
-/*
-authenticate(scopes)
-  .then(client => listDataSource())
-  .catch(console.error);
-*/
+// authenticate(scopes)
+//   .then(client => listDataSource())
+//   .catch(console.error);
 
-/*
-authenticate(scopes)
-  .then(client => createDataSource())
-  .catch(console.error);
-*/
+// authenticate(scopes)
+//   .then(client => createDataSource())
+//   .catch(console.error);
+
+// authenticate(scopes)
+//   .then(client => deleteDataSource("xxxxxx"))
+//   .catch(console.error);
 
 function getNano(day) {
   const dt = new Date(day);
   return dt.getTime() * 1000000;
 }
 
-const dataSourceId = "raw:com.google.weight:410630221267:my:foo:1000001:patch weight";
+const dataSourceId = "raw:com.google.weight:410630221267:my:foo:1000001:patch_weight";
 const start = getNano("2020-12-31T00:00:00");
 const end = getNano("2021-12-31T23:59:59");
 const nano = getNano("2020-12-31T07:00:00");
 const datasetId = `${start}-${end}`;
 const val = 69.3;
 
-
 authenticate(scopes)
   .then(client => patch(dataSourceId, datasetId, end, start, nano, val))
   .catch(console.error);
+
+// authenticate(scopes)
+//   .then(client => getDataSet(datasetId, dataSourceId))
+//   .catch(console.error);
