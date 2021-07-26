@@ -119,8 +119,10 @@ function getPastday(days, hours) {
   return pastday;
 }
 
-const from = getPastday(1, 7);
-const to = getPastday(1, 23);
+// const from = getPastday(1, 7);
+// const from = getPastday(1, 23);
+const from = new Date("2020-12-31T00:00:00");
+const to = new Date("2020-12-31T23:59:59");
 
 authenticate(scopes)
   .then(client => aggregate(client, from, to))
