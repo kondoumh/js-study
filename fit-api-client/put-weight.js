@@ -56,19 +56,19 @@ async function authenticate(scopes) {
 
 async function createDataSource() {
   const res = await fitness.users.dataSources.create({
-    userId: 'me',
+    userId: "me",
     requestBody: {
       "application": {
         name: "patch_weight",
         detailsUrl: 'https://example.com',
-        version: '1'
+        version: "1"
       },
       "dataType": {
-        name: 'com.google.weight',
+        name: "com.google.weight",
         field: [
           {
-            name: 'weight',
-            format: 'floatPoint'
+            name: "weight",
+            format: "floatPoint"
           }
         ]
       },
@@ -80,7 +80,7 @@ async function createDataSource() {
         type: "scale",
         uid: "1000001",
         version: "1.0"
-      },
+      }
     }
   });
   console.log(res.data);
@@ -119,22 +119,22 @@ async function deleteDataSource() {
   console.log(res.data);
 }
 
-async function patch(dataSourceId, datasetId, end, start, nano, val) {
+async function patch(dataSourceId, datasetId, end, start, time, val) {
   // retrieve user profile
   const res = await fitness.users.dataSources.datasets.patch({
     datasetId: datasetId,
     dataSourceId: dataSourceId,
-    userId: 'me',
+    userId: "me",
     requestBody: {
       "dataSourceId": dataSourceId,
       "maxEndTimeNs": end,
       "minStartTimeNs": start,
       "point": [
         {
-          dataTypeName: 'com.google.weight',
-          originDataSourceId: '',
-          startTimeNanos: nano,
-          endTimeNanos: nano,
+          dataTypeName: "com.google.weight",
+          originDataSourceId: "",
+          startTimeNanos: time,
+          endTimeNanos: time,
           value: [
             {
               fpVal: val
@@ -174,14 +174,14 @@ function getNano(day) {
 }
 
 const dataSourceId = "raw:com.google.weight:410630221267:my:foo:1000001:patch_weight";
-const start = getNano("2020-12-31T00:00:00");
-const end = getNano("2021-12-31T23:59:59");
-const nano = getNano("2020-12-31T07:00:00");
+const start = getNano("2020-12-29T00:00:00");
+const end   = getNano("2021-12-29T23:59:59");
+const time  = getNano("2020-12-29T07:00:00");
 const datasetId = `${start}-${end}`;
-const val = 69.3;
+const val = 68.6;
 
 authenticate(scopes)
-  .then(client => patch(dataSourceId, datasetId, end, start, nano, val))
+  .then(client => patch(dataSourceId, datasetId, end, start, time, val))
   .catch(console.error);
 
 // authenticate(scopes)
