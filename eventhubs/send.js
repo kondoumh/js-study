@@ -1,6 +1,7 @@
 const { EventHubProducerClient } = require("@azure/event-hubs");
+const config = require("config");
 
-const connectionString = "EVENT HUBS NAMESPACE CONNECTION STRING";
+const connectionString = config.get("sendConnectionString");
 const eventHubName = "mheventhub";
 
 async function main() {

@@ -1,11 +1,12 @@
 const { EventHubConsumerClient } = require("@azure/event-hubs");
 const { ContainerClient } = require("@azure/storage-blob");
 const { BlobCheckpointStore } = require("@azure/eventhubs-checkpointstore-blob");
+const config = require("config");
 
-const connectionString = "EVENT HUBS NAMESPACE CONNECTION STRING";    
+const connectionString = config.get("receiveConnectionString");
 const eventHubName = "mheventhub";
 const consumerGroup = "$Default";
-const storageConnectionString = "AZURE STORAGE CONNECTION STRING";
+const storageConnectionString = config.get("storageConnectionString");
 const containerName = "eventhub-checkpoint-blob";
 
 async function main() {
