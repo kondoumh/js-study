@@ -23,7 +23,7 @@ async function main() {
       }
 
       for (const event of events) {
-        console.log(`Received event: '${event.body}' from partition: '${context.partitionId}' and consumer group: '${context.consumerGroup}'`);
+        console.log(`Received event: '${event.body.name}' from partition: '${context.partitionId}' and consumer group: '${context.consumerGroup}'`);
       }
       await context.updateCheckpoint(events[events.length - 1]);
     },

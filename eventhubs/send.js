@@ -7,9 +7,9 @@ const eventHubName = "mheventhub";
 async function main() {
   const producer = new EventHubProducerClient(connectionString, eventHubName);
   const batch = await producer.createBatch();
-  batch.tryAdd({ body: "First event" });
-  batch.tryAdd({ body: "Second event" });
-  batch.tryAdd({ body: "Third event" });
+  batch.tryAdd({ body: { id: "e01", name: "1st event" } });
+  batch.tryAdd({ body: { id: "e02", name: "2nd event" } });
+  batch.tryAdd({ body: { id: "e03", name: "3rd event" } });
 
   await producer.sendBatch(batch);
   await producer.close();
