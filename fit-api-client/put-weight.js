@@ -9,6 +9,7 @@ const destroyer = require('server-destroy');
 
 const { google } = require('googleapis');
 const fitness = google.fitness('v1');
+const { readCsv } = require('./read-csv');
 
 const keyPath = path.join(__dirname, 'oauth2.keys.json');
 let keys = { redirect_uris: [''] };
@@ -179,6 +180,9 @@ const end   = getNano("2021-12-29T23:59:59");
 const time  = getNano("2020-12-29T07:00:00");
 const datasetId = `${start}-${end}`;
 const val = 68.6;
+
+const data = readCsv();
+console.log(data);
 
 authenticate(scopes)
   .then(client => patch(dataSourceId, datasetId, end, start, time, val))

@@ -6,16 +6,23 @@ function getNano(day) {
   return dt.getTime() * 1000000;
 }
 
-const csv = fs.readFileSync("weight.csv");
-const records = parse(csv, { columns: true });
+function readCsv() {
+  const csv = fs.readFileSync("weight.csv");
+  const records = parse(csv, { columns: true });
+  
+  const weights = records.map(v => {
+     return {
+       min: getNano(v.date + "T00:00:00"),
+       max: getNano(v.date + "T23:59:59"),
+       time: getNano(v.date + "T07:00:00"),
+       weight: v.weight
+     }
+    }
+  );
 
-const weights = records.map(v => {
-   return {
-     min: getNano(v.date + "T00:00:00"),
-     max: getNano(v.date + "T23:59:59"),
-     time: getNano(v.date + "T07:00:00"),
-     weight: v.weight
-   }
-  });
+  return weights;
+}
 
-console.log(weights);
+module.exports = {
+  readCsv
+};
