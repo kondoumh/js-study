@@ -6,8 +6,8 @@ function getNano(day) {
   return dt.getTime() * 1000000;
 }
 
-function readCsv() {
-  const csv = fs.readFileSync("weight.csv");
+function readCsv(filename) {
+  const csv = fs.readFileSync(filename);
   const records = parse(csv, { columns: true });
   
   const weights = records.map(v => {
