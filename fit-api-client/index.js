@@ -32,19 +32,24 @@ async function aggregate(client, from, to) {
       //   "filteredDataQualityStandard": [],
     },
   });
+
   const steps = res.data.bucket[0].dataset[0].point[0];
-  console.log(steps.originDataSourceId);
-  console.log(formatDate(steps.startTimeNanos));
-  console.log(formatDate(steps.endTimeNanos));
-  console.log(steps.dataTypeName);
-  console.log(steps.value[0].intVal);
+  if (steps) {
+    console.log(steps.originDataSourceId);
+    console.log(formatDate(steps.startTimeNanos));
+    console.log(formatDate(steps.endTimeNanos));
+    console.log(steps.dataTypeName);
+    console.log(steps.value[0].intVal);
+  }
 
   const weight = res.data.bucket[0].dataset[1].point[0];
-  console.log(weight.originDataSourceId);
-  console.log(formatDate(weight.startTimeNanos));
-  console.log(formatDate(weight.endTimeNanos));
-  console.log(weight.dataTypeName);
-  console.log(weight.value[0].fpVal);
+  if (weight) {
+    console.log(weight.originDataSourceId);
+    console.log(formatDate(weight.startTimeNanos));
+    console.log(formatDate(weight.endTimeNanos));
+    console.log(weight.dataTypeName);
+    console.log(weight.value[0].fpVal);
+  }
 }
 
 function formatDate(timestamp) {
