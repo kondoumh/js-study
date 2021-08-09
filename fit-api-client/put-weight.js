@@ -98,11 +98,6 @@ async function patch(dataSourceId, datasetId, end, start, time, val) {
   console.log(res.data);
 }
 
-const scopes = [
-  'https://www.googleapis.com/auth/fitness.body.read',
-  'https://www.googleapis.com/auth/fitness.body.write',
-];
-
 // authenticate(scopes)
 //   .then(client => getDataSource("xxxxxx"))
 //   .catch(console.error);
@@ -119,23 +114,23 @@ const scopes = [
 //   .then(client => deleteDataSource("xxxxxx"))
 //   .catch(console.error);
 
-function getNano(day) {
-  const dt = new Date(day);
-  return dt.getTime() * 1000000;
+async function postData(data, dataSourceId) {
+  data.forEach(async e => {
+    const datasetId = `${e.min}-${e.max}`;
+    console.log(e.weight, datasetId);
+    await patch(dataSourceId, datasetId, e.max, e.min, e.time, e.weight);
+  });
 }
 
 const dataSourceId = "raw:com.google.weight:410630221267:my:foo:1000001:patch_weight";
-const start = getNano("2020-12-29T00:00:00");
-const end   = getNano("2021-12-29T23:59:59");
-const time  = getNano("2020-12-29T07:00:00");
-const datasetId = `${start}-${end}`;
-const val = 68.6;
-
-const data = readCsv();
-console.log(data);
+const data = readCsv("weight.csv");
+const scopes = [
+  'https://www.googleapis.com/auth/fitness.body.read',
+  'https://www.googleapis.com/auth/fitness.body.write',
+];
 
 authenticate(scopes)
-  .then(client => patch(dataSourceId, datasetId, end, start, time, val))
+  .then(client => postData(data, dataSourceId))
   .catch(console.error);
 
 // authenticate(scopes)
