@@ -25,3 +25,23 @@ function formatDate(timestamp) {
   }
   return date.toLocaleString("ja", params)
 }
+
+function makeDays(from, to) {
+  let days = [];
+  const start = new Date(from);
+  const end = new Date(to);
+  let cur = start;
+  while (cur.getTime() <= end.getTime()) {
+    let cur2 = new Date(cur);
+    cur2.setHours(cur2.getHours() + 23);
+    cur2.setMinutes(cur2.getMinutes() +  59);
+    cur2.setSeconds(cur2.getSeconds() + 59);
+    //console.log(formatDate(cur.getTime()), formatDate(cur2.getTime()));
+    days.push({min: cur, max: cur2});
+    cur.setDate(cur.getDate() + 1);
+   }
+   return days;
+}
+
+const days = makeDays("2021-08-01T00:00:00", "2021-08-10T00:00:00");
+console.log(days);
