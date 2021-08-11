@@ -5,7 +5,7 @@ const fitness = google.fitness('v1');
 
 const { authenticate } = require('./auth');
 
-async function aggregate(client, from, to) {
+async function aggregate(from, to) {
   // retrieve user profile
   const res = await fitness.users.dataset.aggregate({
     // Aggregate data for the person identified. Use me to indicate the authenticated user. Only me is supported at this time.
@@ -52,6 +52,12 @@ async function aggregate(client, from, to) {
   }
 }
 
+async function aggregateDaily(durations) {
+  durations.forEach(async d => {
+    await aggregate(d.min, d.max);
+  });
+}
+
 function formatDate(timestamp) {
   let date = new Date();
   date.setTime(timestamp / 1000000);
@@ -63,23 +69,41 @@ function formatDate(timestamp) {
   return date.toLocaleString("ja", params);
 }
 
+function makeDurations(from, to) {
+  let durations = [];
+  const start = new Date(from);
+  const end = new Date(to);
+  let cur = start;
+  while (cur.getTime() <= end.getTime()) {
+    let d1 = new Date(cur);
+    let d2 = new Date(cur);
+    d2.setHours(d2.getHours() + 23);
+    d2.setMinutes(d2.getMinutes() + 59);
+    d2.setSeconds(d2.getSeconds() + 59);
+    durations.push({ min: d1, max: d2 });
+    cur.setDate(cur.getDate() + 1);
+  }
+  return durations;
+}
+
 const scopes = [
   'https://www.googleapis.com/auth/fitness.activity.read',
   'https://www.googleapis.com/auth/fitness.body.read',
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 
-function getPastday(days, hours) {
-  let pastday = new Date(new Date().setDate(new Date().getDate() - days));
-  pastday.setHours(hours, 0, 0);
-  return pastday;
-}
+const durations = makeDurations("2021-01-01T00:00:00", "2021-02-01T00:00:00");
+authenticate(scopes)
+  .then(client => aggregateDaily(durations))
+  .catch(console.error);
 
+// function getPastday(days, hours) {
+//   let pastday = new Date(new Date().setDate(new Date().getDate() - days));
+//   pastday.setHours(hours, 0, 0);
+//   return pastday;
+// }
 // const from = getPastday(1, 7);
 // const to = getPastday(1, 23);
-const from = new Date("2020-12-29T00:00:00");
-const to = new Date("2020-12-29T23:59:59");
-
-authenticate(scopes)
-  .then(client => aggregate(client, from, to))
-  .catch(console.error);
+// authenticate(scopes)
+//   .then(client => aggregate(from, to))
+//   .catch(console.error);
