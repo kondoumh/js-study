@@ -32,12 +32,13 @@ function makeDays(from, to) {
   const end = new Date(to);
   let cur = start;
   while (cur.getTime() <= end.getTime()) {
-    let cur2 = new Date(cur);
-    cur2.setHours(cur2.getHours() + 23);
-    cur2.setMinutes(cur2.getMinutes() +  59);
-    cur2.setSeconds(cur2.getSeconds() + 59);
+    let d1 = new Date(cur);
+    let d2 = new Date(cur);
+    d2.setHours(d2.getHours() + 23);
+    d2.setMinutes(d2.getMinutes() + 59);
+    d2.setSeconds(d2.getSeconds() + 59);
     //console.log(formatDate(cur.getTime()), formatDate(cur2.getTime()));
-    days.push({min: cur, max: cur2});
+    days.push({ min: d1, max: d2 });
     cur.setDate(cur.getDate() + 1);
    }
    return days;
