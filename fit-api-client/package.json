@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "patch": "node put-weight.js",
-    "read": "node read-csv.js"
+    "patch": "node put-weight.js"
   },
   "author": "kondoumh",
   "license": "MIT",
