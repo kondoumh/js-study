@@ -33,23 +33,26 @@ async function aggregate(from, to) {
     },
   });
 
+  const row = [];
   const steps = res.data.bucket[0].dataset[0].point[0];
   if (steps) {
-    console.log(steps.originDataSourceId);
-    console.log(formatDate(steps.startTimeNanos));
-    console.log(formatDate(steps.endTimeNanos));
-    console.log(steps.dataTypeName);
-    console.log(steps.value[0].intVal);
+    row.push(steps.originDataSourceId);
+    row.push(formatDate(steps.startTimeNanos));
+    //row.push(steps.dataTypeName);
+    row.push(steps.value[0].intVal);
+  } else {
+    row.push(' ', ' ', ' ');
   }
-
   const weight = res.data.bucket[0].dataset[1].point[0];
   if (weight) {
-    console.log(weight.originDataSourceId);
-    console.log(formatDate(weight.startTimeNanos));
-    console.log(formatDate(weight.endTimeNanos));
-    console.log(weight.dataTypeName);
-    console.log(weight.value[0].fpVal);
+    row.push(weight.originDataSourceId);
+    row.push(formatDate(weight.startTimeNanos));
+    //row.push(weight.dataTypeName);
+    row.push(weight.value[0].fpVal);
+  } else {
+    row.push(' ', ' ', ' ');
   }
+  console.log(row.join(','));
 }
 
 async function aggregateDaily(durations) {
@@ -63,7 +66,6 @@ function formatDate(timestamp) {
   date.setTime(timestamp / 1000000);
   const params = {
     year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: 'numeric', second: 'numeric',
     hour12: false
   };
   return date.toLocaleString("ja", params);
