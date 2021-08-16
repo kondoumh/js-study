@@ -36,23 +36,35 @@ async function aggregate(from, to) {
   const row = [];
   const steps = res.data.bucket[0].dataset[0].point[0];
   if (steps) {
-    row.push(steps.originDataSourceId);
     row.push(formatDate(steps.startTimeNanos));
-    //row.push(steps.dataTypeName);
     row.push(steps.value[0].intVal);
+    row.push(shortenSource(steps.originDataSourceId, "raw:com.google.step_count.cumulative:"));
+    //row.push(steps.dataTypeName);
   } else {
     row.push(' ', ' ', ' ');
   }
   const weight = res.data.bucket[0].dataset[1].point[0];
   if (weight) {
-    row.push(weight.originDataSourceId);
     row.push(formatDate(weight.startTimeNanos));
-    //row.push(weight.dataTypeName);
     row.push(weight.value[0].fpVal);
+    row.push(shortenSource(weight.originDataSourceId, "raw:com.google.weight:"));
+    //row.push(weight.dataTypeName);
   } else {
     row.push(' ', ' ', ' ');
   }
   console.log(row.join(','));
+}
+
+function shortenSource(dataSourceId, prefix) {
+  if (dataSourceId) {
+    if (dataSourceId.indexOf(prefix) === 0) {
+      return dataSourceId.substring(prefix.length);
+    } else {
+      return dataSourceId;
+    }
+  } else {
+    return dataSourceId;
+  }
 }
 
 async function aggregateDaily(durations) {
@@ -94,7 +106,7 @@ const scopes = [
   'https://www.googleapis.com/auth/fitness.body.write',
 ];
 
-const durations = makeDurations("2021-01-01T00:00:00", "2021-02-01T00:00:00");
+const durations = makeDurations("2021-08-01T00:00:00", "2021-08-15T00:00:00");
 authenticate(scopes)
   .then(client => aggregateDaily(durations))
   .catch(console.error);
