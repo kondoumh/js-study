@@ -1,4 +1,4 @@
-const funs = require('./funs');
+import funs from './funs.js';
 
 try {
   funs['foo']();

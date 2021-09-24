@@ -1,11 +1,11 @@
-module.exports = {
-  foo() {
-    console.log('foo');
-  },
-  bar() {
-    console.log('bar');
-  },
-  baz() {
-    console.log('baz');
-  }
-};
+function foo() {
+  console.log('foo');
+}
+function bar() {
+  console.log('bar');
+}
+function baz() {
+  console.log('baz');
+}
+
+export default {foo, bar, baz};
