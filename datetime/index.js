@@ -19,8 +19,17 @@ function formatDate(timestamp) {
   let date = new Date()
   date.setTime(timestamp)
   const params = {
-    year: "numeric", month: "numeric", day: "numeric",
-    hour: "numeric", minute: "numeric", second: "numeric",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "numeric", second: "numeric",
+    hour12: false
+  }
+  return date.toLocaleString("ja", params)
+}
+
+function timeStamp() {
+  let date = new Date()
+  const params = {
+    hour: "2-digit", minute: "numeric", second: "numeric",
     hour12: false
   }
   return date.toLocaleString("ja", params)
@@ -46,3 +55,5 @@ function makeDays(from, to) {
 
 const days = makeDays("2021-08-01T00:00:00", "2021-08-10T00:00:00");
 console.log(days);
+
+console.log(timeStamp());
