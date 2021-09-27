@@ -9,6 +9,11 @@ import fetch from "node-fetch";
       }
     }
   );
-  const data = await res.json();
-  console.log(data);
+  if (res.ok) {
+    const data = await res.json();
+    console.log(data);
+  } else {
+    const errorBody = await res.text();
+    console.error(`Error body: ${errorBody}`);
+  }
 })();
