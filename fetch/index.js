@@ -1,4 +1,4 @@
-const fetch = require("node-fetch").default;
+import fetch from "node-fetch";
 
 (async() => {
   const res = await fetch(
