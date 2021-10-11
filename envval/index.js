@@ -1,3 +1,4 @@
 const hoge = process.env.HOGE;
+const fuga = process.env.FUGA;
 
-console.log(hoge);
+console.log(hoge, fuga);
