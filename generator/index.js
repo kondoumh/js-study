@@ -31,4 +31,26 @@ console.log(gen2.next().value);
 console.log(gen2.next().value);
 console.log(gen2.next().value);
 
-console.log("")
+console.log("argument ---------");
+function* logGenerator() {
+  console.log(0);
+  console.log(1, yield);
+  console.log(2, yield);
+  console.log(3, yield);
+}
+const lgen = logGenerator();
+lgen.next();
+lgen.next('pretzel');
+lgen.next('california');
+lgen.next('mayonnaise');
+
+console.log("return --------------");
+function* yiealdAndReturn() {
+  yield "Y";
+  return "R";
+  yield "unreachable";
+}
+const genR = yiealdAndReturn();
+console.log(genR.next());
+console.log(genR.next());
+console.log(genR.next());
