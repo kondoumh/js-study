@@ -160,3 +160,17 @@ function* randomIntArray(max, len) {
 }
 console.log([...randomIntArray(2, 10)]);
 console.log([...randomIntArray(6, 4)]);
+
+console.log('take out conbinations in order -------------');
+function* combination(ary, len) {
+  yield* (function* gfn(a, ary){
+    if (a.length < len) {
+      for (let i = 0; i < ary.length - len + a.length + 1; i++) {
+        yield* gfn(a.concat(ary[i]), ary.slice(i + 1));
+      }
+    }
+    else yield a;
+  })([], ary);
+}
+for (v of combination([1, 2, 3], 2)) console.log(v);
+for (v of combination(['A', 'B', 'C', 'D', 'E'], 3)) console.log(v.join(''));
