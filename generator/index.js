@@ -98,7 +98,7 @@ const BarObj = {
 console.log(Array.from(new Bar));
 console.log(Array.from(BarObj));
 
-console.log('formula')
+console.log('formula --------------------')
 const foo = function* () {
   yield 10;
   yield 20;
@@ -116,3 +116,25 @@ for(let power of powers(2)) {
   if (power > 32) break;
   console.log(power);
 }
+
+console.log('yield* ----------');
+function* arrg() {
+  yield* [1, 3, 5];
+}
+const ag = arrg();
+console.log(ag.next());
+console.log(ag.next());
+console.log(ag.next());
+console.log(ag.next());
+
+console.log('iterable ----------');
+function* itf() {
+  yield 1;
+  yield* [2, 4, 3, 1];
+}
+for (const num of itf()) console.log(num);
+console.log([...itf()]);
+console.log(Math.max(...itf()));
+const [a, b, c, d] = itf();
+console.log(a, b, c, d);
+console.log(new Set(itf()));
