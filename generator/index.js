@@ -138,3 +138,25 @@ console.log(Math.max(...itf()));
 const [a, b, c, d] = itf();
 console.log(a, b, c, d);
 console.log(new Set(itf()));
+
+console.log('fibonacci ----------');
+function* fibonacci() {
+  let a = 0, b = 1, temp;
+  while (true) {
+    temp = a + b;
+    a = b; b = temp;
+    yield a;
+  }
+}
+const fg = fibonacci();
+for (const num of fg) {
+  if (num > 1000) break;
+  console.log(num);
+}
+
+console.log('create array of random integer -----------');
+function* randomIntArray(max, len) {
+  for (let i = 0; i < len; i++) yield Math.floor(Math.random() * max) + 1;
+}
+console.log([...randomIntArray(2, 10)]);
+console.log([...randomIntArray(6, 4)]);
