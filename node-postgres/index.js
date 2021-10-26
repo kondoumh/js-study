@@ -6,7 +6,7 @@ var client = new Client({
   database: 'hoge',
   password: 'postgres',
   port: 5432
-})
+});
 
 client.connect();
 
