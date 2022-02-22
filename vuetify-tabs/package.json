@@ -1,0 +1,14 @@
+{
+  "name": "vuetify-tabs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server --port 3001"
+  },
+  "keywords": [],
+  "author": "kondoumh",
+  "dependencies": {
+    "http-server": "^14.1.0"
+  }
+}

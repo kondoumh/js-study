@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Scrapbox page list</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.3/dist/vuetify.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@2.1.7/dist/vuetify.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <style>
+    </style>
+    </head>
+  <body>
+    <div id="app">
+      <v-card>
+        <v-toolbar
+          color="cyan"
+          dark
+          flat
+        >
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    
+          <v-toolbar-title>Your Dashboard</v-toolbar-title>
+    
+          <v-spacer></v-spacer>
+    
+          <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+    
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+    
+          <template v-slot:extension>
+            <v-tabs
+              v-model="tab"
+              align-with-title
+            >
+              <v-tabs-slider color="yellow"></v-tabs-slider>
+    
+              <v-tab
+                v-for="item in items"
+                :key="item"
+              >
+                {{ item }}
+              </v-tab>
+            </v-tabs>
+          </template>
+        </v-toolbar>
+    
+        <v-tabs-items v-model="tab">
+          <v-tab-item
+            v-for="item in items"
+            :key="item"
+          >
+            <v-card flat>
+              <v-card-text v-text="text"></v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
+      </v-card>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
