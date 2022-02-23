@@ -1,6 +1,11 @@
 new Vue({
   el: '#app',
-  vuetify: new Vuetify(),
+  vuetify: new Vuetify({
+    theme: {
+      dark: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    }    
+  }
+  ),
   data () {
     return {
       tab: null,
