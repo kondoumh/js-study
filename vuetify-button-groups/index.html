@@ -13,94 +13,95 @@
   <body>
     <div id="app">
       <v-app id="inspire">
-        <v-toolbar dense>
-          <v-btn
-            text
-            v-on:click="greet"
-          >
-            <v-icon>mdi-arrow-left</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-          >
-            <v-icon>mdi-arrow-right</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-          >
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-          >
-            <v-icon>mdi-content-duplicate</v-icon>
-          </v-btn>
-
-          <div class="mx-4"></div>
-
-          <v-btn
-            text
-          >
-            <v-icon>mdi-content-copy</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-          >
-            <v-icon>mdi-reload</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-          >
-            <v-icon>mdi-view-list</v-icon>
-          </v-btn>
-
-          <v-divider vertical></v-divider>
-
-          <v-spacer></v-spacer>
-
-          <v-overflow-btn
-            :items="dropdown_favs"
-            label="favs"
-            hide-details
-            class="pa-0"
-          ></v-overflow-btn>
-
-          <v-divider vertical></v-divider>
-
-          <v-overflow-btn
-            :items="dropdown_history"
-            editable
-            label="history"
-            hide-details
-            class="pa-0"
-            overflow
-          ></v-overflow-btn>
-
-          <v-btn
-            :disabled="!length"
-            text
-            @click="length--"
-          >
-            Remove Tab
-          </v-btn>
-          <v-divider
-            class="mx-4"
-            vertical
-          ></v-divider>
-          <v-btn
-            text
-            @click="length++"
-          >
-            Add Tab
-          </v-btn>
-
-        </v-toolbar>
-        <v-toolbar>
+        <v-app-bar>
+          <v-toolbar dense>
+            <v-btn
+              text
+              v-on:click="greet"
+            >
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+  
+            <v-btn
+              text
+            >
+              <v-icon>mdi-arrow-right</v-icon>
+            </v-btn>
+  
+            <v-btn
+              text
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+  
+            <v-btn
+              text
+            >
+              <v-icon>mdi-content-duplicate</v-icon>
+            </v-btn>
+  
+            <div class="mx-4"></div>
+  
+            <v-btn
+              text
+            >
+              <v-icon>mdi-content-copy</v-icon>
+            </v-btn>
+  
+            <v-btn
+              text
+            >
+              <v-icon>mdi-reload</v-icon>
+            </v-btn>
+  
+            <v-btn
+              text
+            >
+              <v-icon>mdi-view-list</v-icon>
+            </v-btn>
+  
+            <v-divider vertical></v-divider>
+  
+            <v-spacer></v-spacer>
+  
+            <v-overflow-btn
+              :items="dropdown_favs"
+              label="favs"
+              hide-details
+              class="pa-0"
+            ></v-overflow-btn>
+  
+            <v-divider vertical></v-divider>
+  
+            <v-overflow-btn
+              :items="dropdown_history"
+              editable
+              label="history"
+              hide-details
+              class="pa-0"
+              overflow
+            ></v-overflow-btn>
+  
+            <v-btn
+              :disabled="!length"
+              text
+              @click="length--"
+            >
+              Remove Tab
+            </v-btn>
+            <v-divider
+              class="mx-4"
+              vertical
+            ></v-divider>
+            <v-btn
+              text
+              @click="length++"
+            >
+              Add Tab
+            </v-btn>
+  
+          </v-toolbar>
+  
           <template v-slot:extension>
             <v-tabs
               v-model="tab"
@@ -117,7 +118,7 @@
               </v-tab>
             </v-tabs>
           </template>
-        </v-toolbar>
+        </v-app-bar>
       </v-app>
     </div>
     <script src="index.js"></script>
