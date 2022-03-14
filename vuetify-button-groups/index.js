@@ -18,10 +18,17 @@ new Vue({
       { text: 'huga' },
       { text: 'piyo' },
     ],
+    tab: null,
+    length: 5,
   }),
   methods: {
     greet: () => {
       console.log('hello');
     }
-  }
+  },
+  watch: {
+    length (val) {
+      this.tab = val - 1
+    },
+  },
 })
