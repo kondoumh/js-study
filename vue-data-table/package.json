@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.11",
-    "minimist": ">=1.2.2",
+    "minimist": ">=1.2.6",
     "vue": "^2.6.11",
     "vuetify": "^1.5.24"
   },
