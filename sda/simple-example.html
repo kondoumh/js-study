@@ -1,0 +1,49 @@
+<script src="https://cdn.jsdelivr.net/npm/simple-data-analysis@latest">
+  // If you have a source map warning in the console,
+  // you can use src="https://cdn.jsdelivr.net/npm/simple-data-analysis@latest/dist/simple-data-analysis.min.js"
+</script>
+
+<div id="viz"></div>
+
+<script>
+  async function main() {
+
+      const simpleData = await new sda.SimpleData()
+          // We retrieve some data
+          .loadDataFromUrl({
+              url: "https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/data/employees.csv",
+              autoType: true // CSV files are text. Automatically convert numbers.
+          })
+
+      simpleData
+          // We remove duplicate items
+          .removeDuplicates()
+          // We compute the mean of
+          // the salaries for each job
+          .summarize({
+              keyValue: "Salary",
+              keyCategory: "Job",
+              summary: "mean"
+          })
+          // We remove items with missing values
+          .excludeMissingValues()
+          // We log the table in the console
+          .showTable()
+
+      // We select our div with the id "viz"
+      // and we add a chart in it.
+      document.querySelector("#viz").innerHTML =
+          simpleData
+              // getChart() returns SVG
+              // or HTML elements
+              .getChart({
+                  x: "mean",
+                  y: "Job",
+                  color: "Job",
+                  type: "barHorizontal",
+                  marginLeft: 100
+              })
+  }
+
+  main()
+</script>
