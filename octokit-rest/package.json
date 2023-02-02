@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "@octokit/rest": "^18.0.9",
-    "node-jq": "^1.11.3"
+    "node-jq": "^2.3.5"
   }
 }
