@@ -1,10 +1,6 @@
 <script setup lang="ts">
-const articles = ref< { id: number, title: string }[]>([]);
-articles.value = [
-  { id: 1, title: 'Hello Nuxt' },
-  { id: 2, title: 'Hello Vue' },
-  { id: 3, title: 'Hello TypeScript' },
-];
+const { fetchArticles, articles } = useArticles();
+fetchArticles();
 </script>
 
 <template>
