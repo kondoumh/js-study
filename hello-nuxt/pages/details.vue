@@ -13,5 +13,6 @@ fetchArticle(+id);
       <div style="width: 500px;">{{ article.content }}</div>
     </article>
     <NuxtLink to="/">Back</NuxtLink>
+    <Advertisement />
   </div>
 </template>
