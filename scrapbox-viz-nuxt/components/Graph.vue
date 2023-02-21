@@ -3,84 +3,24 @@
 </template>
 
 <script setup>
-  import * as d3 from 'd3'
-
-  const graphData = ref([]);
-  const width = ref(0);
-  const height = ref(0);
+  import * as d3 from 'd3';
+  const { width, height, nodes, edges, fetchData } = useGraph();
 
   const props = defineProps({
     project: String,
   });
 
-  const nodes = computed(() => {
-    let nodes = graphData.value.pages
-      .map(page => ({
-        id: page.id,
-        title: page.title,
-        x: width.value * Math.random(),
-        y: height.value * Math.random(),
-        rx: byteLength(page.title) * 2,
-        ry: 10,
-        user: false
-      }));
-
-    const users = graphData.value.users
-      .map(user => ({
-        id: user.id,
-        title: user.name,
-        x: width.value * Math.random(),
-        y: height.value * Math.random(),
-        rx: byteLength(user.name),
-        ry: 10,
-        user: true
-      }));
-    nodes = nodes.concat(users);
-    return nodes;
-  });
-
-  const edges = computed(() => {
-    const ids = new Set(nodes.value.map(node => node.id));
-    const idm = new Map();
-    nodes.value.forEach((node, index) => idm[node.id] = index);
-    let edges = graphData.value.links
-      .filter(edge => ids.has(edge.from) && ids.has(edge.to))
-      .map(edge => ({
-        source: idm[edge.from],
-        target: idm[edge.to],
-        l: Math.random() * 150
-      }));
-
-    const userPages = graphData.value.userPages
-      .filter(up => ids.has(up.user) && ids.has(up.page))
-      .map(up => ({
-        source: idm[up.user],
-        target: idm[up.page],
-        l: Math.random() * 300
-      }));
-    edges = edges.concat(userPages);
-    return edges;
-  });
-
   onMounted(async () => {
     width.value = document.querySelector('svg').clientWidth;
     height.value = document.querySelector('svg').clientHeight;
-    await fetchData();
+    await fetchData(props.project);
     await render();
   });
 
   watch(() => props.project, async () => {
-    await fetchData();
+    await fetchData(props.project);
     await render();
   });
-
-  const fetchData = async () => {
-    const res = await fetch(
-      `https://sb-graph-kondoumh.netlify.app/${encodeURIComponent(props.project)}_graph.json`, 
-      { mode: 'cors'}
-    );
-    graphData.value = await res.json();
-  };
 
   const render = async () => {
     d3.select('svg').selectAll('*').remove();
@@ -185,11 +125,6 @@
 
     link.call(zoom);
     nodeGroup.call(zoom);
-  };
-
-  const byteLength = (str) => {
-    str = (str==null) ? "" : str;
-    return encodeURI(str).replace(/%../g, "*").length;
   };
 </script>
 
