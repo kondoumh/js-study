@@ -1,5 +1,5 @@
 <template>
   <div>
-    <NuxtWelcome />
+    <Graph project="icons" />
   </div>
 </template>
