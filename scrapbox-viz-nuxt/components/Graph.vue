@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-  import { computed, ref, onMounted, watch } from 'vue';
   import * as d3 from 'd3'
 
   const graphData = ref([]);
