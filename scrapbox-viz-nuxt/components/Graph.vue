@@ -5,20 +5,17 @@
 <script setup>
   import * as d3 from 'd3';
   const { width, height, nodes, edges, fetchData } = useGraph();
-
-  const props = defineProps({
-    project: String,
-  });
+  const project = useState('selected-project');
 
   onMounted(async () => {
     width.value = document.querySelector('svg').clientWidth;
     height.value = document.querySelector('svg').clientHeight;
-    await fetchData(props.project);
+    await fetchData(project.value);
     await render();
   });
 
-  watch(() => props.project, async () => {
-    await fetchData(props.project);
+  watch(() => project.value, async () => {
+    await fetchData(project.value);
     await render();
   });
 
@@ -68,7 +65,7 @@
       .on('click', (e, d) => {
         if (d.user) return;
         const page = encodeURIComponent(d.title);
-        const url = `https://scrapbox.io/${encodeURIComponent(props.project)}/${page}`;
+        const url = `https://scrapbox.io/${encodeURIComponent(project.value)}/${page}`;
         window.open(url);        
       });
 
