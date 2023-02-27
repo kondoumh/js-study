@@ -53,11 +53,10 @@ export function useGraph() {
   });
 
   const fetchData = async project => {
-    const res = await fetch(
+    const { data: graph } = await useFetch(
       `https://sb-graph-kondoumh.netlify.app/${encodeURIComponent(project)}_graph.json`, 
-      { mode: 'cors'}
     );
-    graphData.value = await res.json();
+    graphData.value = graph.value;
   };
 
   const byteLength = (str) => {
