@@ -13,7 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "jointjs": "^3.1.1",
+    "jointjs": "^3.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6"
   },
