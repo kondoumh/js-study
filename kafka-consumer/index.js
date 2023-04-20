@@ -13,9 +13,11 @@ const consumer = kafka.consumer({ groupId: 'test-group'});
   
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      console.log({
-        value: message.value.toString(),
-      });
+      console.log(message.value.toString());
+      const correlationId = message.headers['correlation-id'];
+      if (correlationId) {
+        console.log(correlationId.toString());
+      }
     },
   });
 })();
