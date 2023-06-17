@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "@tresjs/cientos": "^1.0.0",
+    "@tresjs/core": "^1.0.0"
   },
   "devDependencies": {
-    "@tresjs/cientos": "^1.0.0",
-    "@tresjs/core": "^1.0.0",
+    "@types/three": "^0.152.1",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vueuse/core": "^10.2.0",
     "three": "^0.153.0",
