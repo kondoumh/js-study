@@ -1,26 +1,14 @@
 <script setup lang="ts">
-import { useTweakPane, useGLTF } from '@tresjs/cientos'
-import { ref, watch } from 'vue'
-
-useTweakPane()
-
-const { scene: model } = await useGLTF(
-  'https://raw.githubusercontent.com/Tresjs/assets/main/models/gltf/aku-aku/AkuAku.gltf',
-  {
-    draco: true,
-  },
-)
-
-const akuAkuRef = ref(null)
-
-watch(akuAkuRef, model => {
-  console.log('akuAkuRef', model)
-  model.position.set(0, 8, 0)
-})
+import { TresCanvas } from '@tresjs/core'
+import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 </script>
-
 <template>
-  <TresGroup :position="[0, 2, 0]">
-    <primitive ref="akuAkuRef" :object="model"> </primitive>
-  </TresGroup>
+    <TresCanvas clear-color="#82DBC5" shadows alpha>
+      <TresPerspectiveCamera :position="[50, 50, 50]" />
+      <OrbitControls />
+      <Suspense>
+        <GLTFModel path="models/teapot.gltf" draco />
+      </Suspense>
+      <TresDirectionalLight :position="[-4, 8, 4]" :intensity="1.5" cast-shadow />
+    </TresCanvas>
 </template>
