@@ -1,23 +1,29 @@
 <script setup lang="ts">
-import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { shallowRef } from 'vue'
-import { OrbitControls, GLTFModel } from '@tresjs/cientos'
+import { TresCanvas, useRenderLoop } from '@tresjs/core';
+import { reactive, shallowRef } from 'vue';
+import { OrbitControls, GLTFModel, useTweakPane } from '@tresjs/cientos';
 
-const modelRef = shallowRef<THREE.Object3D>()
+const state = reactive({
+  clearColor: 'black',
+  shadows: true,
+  alpha: false,
+});
 
-const { onLoop } = useRenderLoop()
+const { onLoop } = useRenderLoop();
 
-const groupRef = shallowRef(null)
+const groupRef = shallowRef(null);
 
 onLoop(({ elapsed }) => {
   if(groupRef) {
-     groupRef.value.rotation.y = elapsed
+     groupRef.value.rotation.y = elapsed;
   }
-})
+});
+
+useTweakPane();
 </script>
 
 <template>
-  <TresCanvas clear-color="#000000" shadows alpha>
+  <TresCanvas v-bind="state">
     <TresPerspectiveCamera :position="[70, 20, 50]" />
     <OrbitControls />
     <TresGroup ref="groupRef" >
@@ -25,6 +31,6 @@ onLoop(({ elapsed }) => {
         <GLTFModel path="models/teapot.gltf" draco />
       </Suspense>
     </TresGroup>
-    <TresDirectionalLight :position="[-4, 8, 4]" :intensity="8.5" cast-shadow />
+    <TresDirectionalLight :position="[-2, 15, 9]" :intensity="8.5" cast-shadow />
   </TresCanvas>
 </template>
