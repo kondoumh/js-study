@@ -1,14 +1,11 @@
 import { BskyAgent } from "@atproto/api";
-import dotenv from "dotenv";
-
-dotenv.config();
 const PASSWORD = process.env.BSKY_PASSWORD;
 
 const agent = new BskyAgent({
   service: "https://bsky.social"
 });
 
-const res = await agent.login({
+await agent.login({
   identifier: "mamezoudev.bsky.social",
   password: PASSWORD
 });
