@@ -20,8 +20,14 @@ async function getOrganizationMembers(orgName) {
                     page: page,
                 },
             });
-            members = members.concat(response.data);
-            if (response.data.length < perPage) {
+
+            const basicMembers = response.data;
+            for (const member of basicMembers) {
+                const detailedMember = await getUserDetails(member.login);
+                members.push(detailedMember);
+            }
+
+            if (basicMembers.length < perPage) {
                 hasMore = false;
             } else {
                 page++;
@@ -34,6 +40,20 @@ async function getOrganizationMembers(orgName) {
     }
 }
 
+async function getUserDetails(username) {
+    try {
+        const response = await axios.get(`https://api.github.com/users/${username}`, {
+            headers: {
+                Authorization: `token ${GITHUB_TOKEN}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching details for user ${username}:`, error);
+        return null;
+    }
+}
 async function saveMembersToFile(members, filePath) {
     try {
         fs.writeFileSync(filePath, JSON.stringify(members, null, 2));
