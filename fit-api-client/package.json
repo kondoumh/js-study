@@ -12,7 +12,7 @@
   "dependencies": {
     "@google-cloud/local-auth": "^1.0.1",
     "csv-parse": "^4.16.0",
-    "googleapis": "^77.0.0",
+    "googleapis": "^171.4.0",
     "open": "^7.4.2",
     "server-destroy": "^1.0.1"
   }
