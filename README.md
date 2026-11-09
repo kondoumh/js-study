@@ -1,2 +1,2 @@
 # js-study
-Project for studying JavaScript / TypeScript and libs
+Repo for studying JavaScript / TypeScript and libs
